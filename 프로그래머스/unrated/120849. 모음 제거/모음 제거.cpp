@@ -14,3 +14,9 @@ string solution(string my_string) {
     }
     return answer;
 }
+
+ // for(auto ch : my_string)
+ //    {
+ //        if( !(ch =='a'|| ch =='e' || ch =='i'|| ch=='o' || ch=='u'))
+ //            answer.push_back(ch);
+ //    }
