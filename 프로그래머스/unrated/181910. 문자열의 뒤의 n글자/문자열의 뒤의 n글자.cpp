@@ -11,3 +11,6 @@ string solution(string my_string, int n) {
     }
     return answer;
 }
+
+//  return my_string.substr(my_string.length()-n);
+//  substr = 해당 위치부터 문자열의 끝까지의 부분 문자열을 추출합니다.
