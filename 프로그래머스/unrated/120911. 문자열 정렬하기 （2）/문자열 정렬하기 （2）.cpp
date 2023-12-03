@@ -14,7 +14,7 @@ string solution(string my_string) {
             answer.push_back(my_string[i]);
     }
     
-     sort(answer.begin(), answer.end(), less<char>());
+     sort(answer.begin(), answer.end());
     
     return answer;
 }
