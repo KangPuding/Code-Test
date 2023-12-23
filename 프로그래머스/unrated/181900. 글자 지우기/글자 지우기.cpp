@@ -8,8 +8,8 @@ string solution(string my_string, vector<int> indices) {
 
     sort(indices.begin(), indices.end(), greater<int>());
 
-    for(int i : indices){
-        answer.erase(answer.begin() + i);
+    for(int i = 0; i < indices.size(); i++){
+        answer.erase(answer.begin() + indices[i]);
     }
 
     return answer;
