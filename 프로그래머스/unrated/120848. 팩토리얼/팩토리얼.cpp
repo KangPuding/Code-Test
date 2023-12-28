@@ -8,9 +8,12 @@ int solution(int n) {
     int i = 1;
     
     while (i <= n){
+        answer++;
+        i *= answer;
         
-            i *= (answer + 1) ;
-            answer++;
+        if(i > n){
+            answer--;
+        }
     }
-    return answer - 1;
+    return answer;
 }
