@@ -7,8 +7,8 @@ int solution(vector<string> s1, vector<string> s2) {
     int answer = 0;
     
     for(const auto s : s1){
-        for(int j = 0; j < s2.size(); j++){
-            if(s == s2[j])
+        for(const auto v : s2){
+            if(s == v)
                 answer++;
         }
     }
