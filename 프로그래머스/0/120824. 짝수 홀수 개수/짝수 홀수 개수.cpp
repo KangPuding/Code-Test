@@ -5,16 +5,16 @@ using namespace std;
 
 vector<int> solution(vector<int> num_list) {
     vector<int> answer;
-    int sum = 0, odd = 0;
+    int a = 0, b = 0;
     
     for(auto s : num_list){
         if(s % 2 == 0)
-            sum++;
+            a++;
         else
-            odd++;
+            b++;
     }
-        answer.push_back(sum);
-        answer.push_back(odd);
+        answer.push_back(a);
+        answer.push_back(b);
     
     return answer;
 }
