@@ -13,4 +13,7 @@ vector<int> solution(vector<int> num_list) {
         answer.push_back(num_list[i]);
     }
     return answer;
+
+    // sort(num_list.begin(), num_list.end(), less<int>());
+    // return vector<int>(num_list.begin(), num_list.begin()+5);
 }
