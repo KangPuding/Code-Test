@@ -1,11 +1,16 @@
 #include <string>
+#include <vector>
 
 using namespace std;
 
 string solution(string n_str) {
     int i = 0;
-    while (i < n_str.size() && n_str[i] == '0') {
-        n_str.erase(n_str.begin() + i);
+    
+    for(auto s : n_str){
+        if(s == '0')
+            i++;
+        else
+            break;
     }
-    return n_str;
+    return n_str.substr(i);
 }
