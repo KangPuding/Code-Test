@@ -5,20 +5,21 @@ using namespace std;
 
 vector<string> solution(string myStr) {
     vector<string> answer;
-    string n;
+    string s;
     
     for(int i = 0; i < myStr.size(); i++){
-        if(myStr[i] != 'a' && myStr[i] != 'b' && myStr[i] != 'c')
-            n += myStr[i];
-        else if (n != ""){
-            answer.push_back(n);
-            n = "";
+        if(myStr[i] != 'a' && myStr[i] != 'b' && myStr[i] != 'c'){
+            s += myStr[i];
+        }
+        else if (s != ""){
+            answer.push_back(s);
+            s = "";
         }
     }
-    if (n != "")
-        answer.push_back(n);
-    else
+    if(s != "")
+        answer.push_back(s);
+    else if(answer.empty())
         answer.push_back("EMPTY");
-
+    
     return answer;
 }
