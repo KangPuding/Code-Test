@@ -21,10 +21,9 @@ vector<int> solution(vector<int> arr) {
         }
     }
 
-        if(startindex == -1){
-        return {-1}; // 빈 vector 반환
-    }
-    
+    if(startindex == -1)
+        answer.push_back(-1);
+    else
     answer = vector<int>(arr.begin() + startindex, arr.begin() + endindex + 1);
     
     return answer;
