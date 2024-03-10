@@ -4,15 +4,16 @@
 using namespace std;
 
 vector<int> solution(vector<int> arr) {
-    int n_l = 1;
-    while (n_l < arr.size()){
-        n_l *= 2;
+    int l_n = 1;
+    
+    while (l_n < arr.size()){
+        l_n *= 2;
     }
     
     vector<int> answer = arr;
     
-    while(answer.size() < n_l){
+    for(int i = answer.size(); i < l_n; i++)
         answer.push_back(0);
-    }
+    
     return answer;
 }
