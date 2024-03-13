@@ -14,14 +14,17 @@ vector<int> solution(int n, vector<int> slicer, vector<int> num_list) {
     if(n == 1){
         for(int i = 0; i <= b; i++)
             result.push_back(num_list[i]);
+        // return vector<int>(num_list.begin(), num_list.begin()+b+1);
     }
     else if (n == 2){
        for(int i = a; i < num_list.size(); i++)
             result.push_back(num_list[i]);
+        // return vector<int>(num_list.begin()+a, num_list.end());
     }
     else if (n == 3){
         for(int i = a; i <= b; i++)
             result.push_back(num_list[i]);
+        // return vector<int>(num_list.begin()+a, num_list.begin()+b+1);
     }
     else if (n == 4){
         for(int i = a; i <= b; i += c)
