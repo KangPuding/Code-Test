@@ -11,6 +11,7 @@ string solution(int n) {
             answer += "박";
         else
             answer += "수";
+        // i & 1 ? answer += "수" : answer += "박";
     }
     return answer;
 }
