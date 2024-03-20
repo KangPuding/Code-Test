@@ -16,5 +16,6 @@ string solution(string s) {
         answer += char(s[i]);
     }
     
+    // sort(s.begin(), s.end(), greater<char>());
     return answer;
 }
