@@ -19,4 +19,5 @@ vector<int> solution(vector<int> arr, int divisor) {
         return {-1};
     else
         return answer;
+    // return answer.empty() ? vector<int>(1, -1) : answer;
 }
