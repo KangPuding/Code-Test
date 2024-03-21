@@ -17,4 +17,10 @@ vector<int> solution(vector<int> arr) {
     }
     
     return answer;
+    
+    
+//     arr.erase(unique(arr.begin(), arr.end()),arr.end());
+
+//     vector<int> answer = arr;
+//     return answer;
 }
