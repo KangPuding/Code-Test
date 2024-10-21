@@ -4,11 +4,12 @@
 using namespace std;
 
 string solution(string my_string) {
-    string answer = "";
+    string StrCopy = "";
     
-    for(auto s : my_string){
-        if(s != 'a' && s != 'e' && s != 'i' && s != 'o' && s != 'u')
-            answer += s;
+    for(int i = 0; i < my_string.size(); i++)
+    {
+        if (my_string[i] != 'a' && my_string[i] != 'e' && my_string[i] != 'i' && my_string[i] != 'o' && my_string[i] != 'u')
+            StrCopy += my_string[i];
     }
-    return answer;
+    return StrCopy;
 }
