@@ -5,9 +5,15 @@
 using namespace std;
 
 int solution(vector<int> array) {
-    int answer = 0;
+    
+    int nLength{};
+    int nResult{};
     
     sort(array.begin(), array.end(), greater<int>());
     
-    return array[array.size() / 2];
+    nLength = array.size() / 2;
+    
+    nResult = array[nLength];
+    
+    return nResult;
 }
