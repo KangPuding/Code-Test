@@ -4,10 +4,15 @@
 
 // box_len은 배열 box의 길이입니다.
 int solution(int box[], size_t box_len, int n) {
-    int box_s = 1;
     
-    for(int i = 0; i < box_len; i++){
-        box_s *= box[i] / n;
+    int nResult;
+    
+    nResult = 1;
+    
+    for(int i = 0; i < box_len; i++)
+    {
+        nResult *= box[i] / n;
     }
-    return box_s;
+    
+    return nResult;
 }
