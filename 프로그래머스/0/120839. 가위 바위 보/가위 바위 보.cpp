@@ -4,15 +4,18 @@
 using namespace std;
 
 string solution(string rsp) {
-    string answer = "";
+ 
+    string Str = "";
     
-    for(char s : rsp){
-        if(s == '2')
-            answer += '0';
-        else if(s == '0')
-            answer += '5';
-        else
-            answer += '2';
+    for(int i = 0; i < rsp.size(); i++)
+    {
+        if(rsp[i] == '2')
+           Str += '0';
+         if(rsp[i] == '0')
+           Str += '5';
+         if(rsp[i] == '5')
+           Str += '2';
     }
-    return answer;
+    
+    return Str;
 }
