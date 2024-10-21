@@ -4,6 +4,17 @@
 using namespace std;
 
 int solution(int n) {
-
-    return n == 1 ? 1 : (n % 7 == 0 ? n / 7 : (n / 7) + 1);
+    int nQuotient{};
+    int nRemainder{};
+    
+    nRemainder = n % 7;
+    
+    if(n <= 7)
+        nQuotient = 1;
+    else if (nRemainder == 0)
+        nQuotient = n / 7;
+    else
+        nQuotient = n / 7 + 1;
+    
+    return nQuotient;
 }
