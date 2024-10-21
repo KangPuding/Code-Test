@@ -3,7 +3,11 @@
 
 using namespace std;
 
-int solution(int num1, int num2) {
+int solution(int num1, int num2)
+{
+    int nResult{};
 
-    return num1 - num2;
+    nResult = num1 - num2;
+
+    return nResult;
 }
