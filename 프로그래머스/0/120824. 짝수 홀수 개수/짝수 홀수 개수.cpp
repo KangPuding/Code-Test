@@ -5,16 +5,21 @@ using namespace std;
 
 vector<int> solution(vector<int> num_list) {
     vector<int> answer;
-    int a = 0, b = 0;
+    int nRemainder{};
+	int nOdd{};
+	int nEven{};
     
-    for(auto s : num_list){
-        if(s % 2 == 0)
-            a++;
-        else
-            b++;
+    for (int i = 0; i < num_list.size(); i++)
+    {
+	    nRemainder = num_list[i] % 2;
+	    if (nRemainder == 0)
+		    nEven++;
+	    else
+		    nOdd++;
     }
-        answer.push_back(a);
-        answer.push_back(b);
+    
+    answer.push_back(nEven);
+    answer.push_back(nOdd);
     
     return answer;
 }
