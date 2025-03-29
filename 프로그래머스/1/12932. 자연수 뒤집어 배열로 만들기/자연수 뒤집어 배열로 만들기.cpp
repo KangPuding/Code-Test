@@ -1,18 +1,22 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
 vector<int> solution(long long n) {
     vector<int> answer;
+    int nData = 10;
+    int nRemainder{};
     
-    string s = to_string(n);
+    while(n > nData)
+    {
+        nRemainder = n % nData;
+        answer.push_back(nRemainder);
+        n = n / 10;
+    }
     
-    for(int i = 0; i < s.size(); i++)
-         answer.push_back(s[i]- '0');
-    
-    reverse(answer.begin(), answer.end());
-    
+        nRemainder = n % nData;
+        answer.push_back(nRemainder);
+        n = n / 10;
     return answer;
 }
