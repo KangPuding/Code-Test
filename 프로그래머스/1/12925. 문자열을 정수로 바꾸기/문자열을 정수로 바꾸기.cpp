@@ -4,6 +4,8 @@
 using namespace std;
 
 int solution(string s) {
-
-    return stoi(s);
+    int answer = 0;
+    answer = stoi(s);
+    
+    return answer;
 }
