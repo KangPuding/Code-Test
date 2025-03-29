@@ -8,15 +8,12 @@ vector<int> solution(long long n) {
     int nData = 10;
     int nRemainder{};
     
-    while(n > nData)
+    while(n)
     {
         nRemainder = n % nData;
         answer.push_back(nRemainder);
         n = n / 10;
     }
     
-        nRemainder = n % nData;
-        answer.push_back(nRemainder);
-        n = n / 10;
     return answer;
 }
