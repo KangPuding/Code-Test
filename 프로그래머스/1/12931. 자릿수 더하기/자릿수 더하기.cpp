@@ -7,7 +7,7 @@ int solution(int n)
     
     string s = to_string(n);
     
-    for(int i = 0; i < s[i] != '\0'; i++)
+    for(int i = 0; s[i] != '\0'; i++)
     {
         answer += (s[i] -'0');
     }
