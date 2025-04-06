@@ -4,17 +4,20 @@ using namespace std;
 
 bool solution(string s)
 {
-    bool answer = true;
-    int p = 0, y = 0;
+    bool nAnswer = false;
+    int nPcount = 0;
+    int nYcount = 0;
     
-    for(int i = 0; i < s.size(); i++){
+    for(int i = 0; i < s[i] != '\0'; i++)
+    {
         if(s[i] == 'p' || s[i] == 'P')
-            p++;
-        else if (s[i] == 'y' || s[i] == 'Y')
-            y++;
-        else
-            continue;
+            nPcount++;
+        if(s[i] == 'y' || s[i] == 'Y')
+            nYcount++;
     }
-
-    return p == y ? true : false;
+    
+    if(nPcount == nYcount || (nPcount == 0 && nYcount == 0))
+        nAnswer = true;
+    
+    return nAnswer;
 }
