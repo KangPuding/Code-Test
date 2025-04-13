@@ -5,11 +5,13 @@ using namespace std;
 
 string solution(vector<string> seoul) {
     string answer = "";
-    
-    for(int i = 0; i < seoul.size(); i++){
-        if(seoul[i] == "Kim"){
-            answer += "김서방은 " + to_string(i) + "에 있다";
-        }
+    int nLoaction = 0;
+    for(int i = 0; i < seoul.size(); i++)
+    {
+        if(seoul[i] == "Kim")
+            nLoaction = i;
     }
+    
+    answer += "김서방은 " + to_string(nLoaction) + "에 있다";
     return answer;
 }
