@@ -4,7 +4,7 @@
 using namespace std;
 
 int solution(vector<int> numbers) {
-    int answer = -1;
+    int answer = 0;
     int nTotal = 0;
     
     for(int i = 0; i < numbers.size(); i++)
