@@ -5,23 +5,22 @@ using namespace std;
 
 int solution(int num) {
     int answer = 0;
-
-    while(true) {
+    int nCount = 0;
+    
+    long long n = num;
+    
+    while(n != 1)
+    {
+        if(nCount >= 500)
+            return -1;
         
-    if(num < 0 || answer >= 500) 
-        return -1;
-
-    if(num == 1) 
-        break;
-
-    if(num%2 ==0){
-        num /= 2;
-        answer++;
-    }   
-    else {
-        num = num * 3 + 1;
-        answer++;
+        if(n % 2 == 0)
+            n = n / 2;
+        else if(n % 2 != 0)
+            n = (n * 3) + 1;
+        
+        nCount++; 
     }
-  }
-    return answer;
+
+    return nCount;
 }
