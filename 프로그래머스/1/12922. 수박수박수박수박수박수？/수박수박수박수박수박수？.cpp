@@ -5,13 +5,17 @@ using namespace std;
 
 string solution(int n) {
     string answer = "";
-    
-    for(int i = 1; i <= n; i++){
-        if(i % 2 == 0)
-            answer += "박";
-        else
+    int nCount = 0;
+    while(n > nCount)
+    {
+        int nRemainder = nCount % 2;
+        
+        if(nRemainder == 0)
             answer += "수";
-        // i & 1 ? answer += "수" : answer += "박";
+        else 
+            answer += "박";
+        
+        nCount++;
     }
     return answer;
 }
