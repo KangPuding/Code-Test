@@ -6,16 +6,18 @@ using namespace std;
 
 string solution(string s) {
     string answer = "";
+    vector<char> nVec;
     
-    for(int i = 0; i < s.size(); i++){
-        s[i] = int(s[i]);
-    }
-    sort(s.begin(), s.end(), greater<int>());
-    
-    for(int i = 0; i < s.size(); i++){
-        answer += char(s[i]);
+    for(int i = 0; i < s.size(); i++)
+    {
+        nVec.push_back(s[i]);
     }
     
-    // sort(s.begin(), s.end(), greater<char>());
+    sort(nVec.begin(), nVec.end(), greater<char>());
+    
+    for(int i = 0; i < nVec.size(); i++)
+    {
+        answer += nVec[i];
+    }
     return answer;
 }
