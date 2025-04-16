@@ -6,11 +6,13 @@ using namespace std;
 bool solution(string s) {
     bool answer = true;
     
-    for(auto n : s){
-        if(64 < n && n < 91 || 96 < n && n < 123)
+    if(s.size() != 4 && s.size() != 6)
+        return false;
+    
+    for(int i = 0; i < s.size(); i++)
+    {
+        if(s[i] < 48 || s[i] > 57)
             answer = false;
-        }
-    
-    
-    return s.size() == 4 || s.size() == 6 ? answer : false;
+    }   
+    return answer;
 }
