@@ -1,15 +1,20 @@
 using namespace std;
 
-long long solution(int price, int money, int count) {
+long long solution(int price, int money, int count)
+{
+    long long nTotal = price;
+    long long mul = 2;
     
-    long long  total = 0;
-
-    for(int i = 1; i <= count; i++){
-        total += price * i;
+    for(int i = 1; i < count; i++)
+    {
+        nTotal += mul * price;
+        mul++;
     }
-    
-    if(total > money)
-        return total - money;
-    else
+
+    if(nTotal < money)
         return 0;
+    else
+        nTotal = nTotal - money;
+    
+    return nTotal;
 }
