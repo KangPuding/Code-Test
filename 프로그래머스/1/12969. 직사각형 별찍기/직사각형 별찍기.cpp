@@ -3,15 +3,19 @@
 using namespace std;
 
 int main(void) {
-    int a;
-    int b;
-    cin >> a >> b;
+    int n;
+    int m;
     
-    for(int i = 0; i < b; i++){
-        for(int j = 0; j < a; j++){
-            cout << '*';
+    scanf("%d", &n);
+    scanf("%d", &m);
+    
+    for(int i = 0; i < m; i++)
+    {
+        for(int j = 0; j < n; j++)
+        {
+            printf("*");
         }
-        cout << endl;
+         printf("\n");
     }
     return 0;
 }
