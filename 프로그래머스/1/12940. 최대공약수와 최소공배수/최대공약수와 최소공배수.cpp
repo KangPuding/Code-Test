@@ -1,24 +1,23 @@
 #include <string>
 #include <vector>
-#include <iostream>
 
 using namespace std;
 
 vector<int> solution(int n, int m) {
     vector<int> answer;
-    int a, b, r;
     
-    a = m;
-    b = n;
+    int nData = 0;
+    int lcm = (n * m);
     
-    while(b != 0) {
-        r = a % b;  
-        a = b;
-        b = r;        
+    while(n != 0)
+    {
+        nData = m % n;
+        m = n;
+        n = nData;
     }
+    answer.push_back(m);
     
-    answer.push_back(a);
-    answer.push_back(n * m / a);
-    
+    lcm /= m;
+    answer.push_back(lcm);
     return answer;
 }
