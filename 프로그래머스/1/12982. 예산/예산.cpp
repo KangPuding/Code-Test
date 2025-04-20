@@ -8,18 +8,17 @@ using namespace std;
 
 int solution(vector<int> d, int budget) {
     int answer = 0;
+    int nIndex = 0;
+    int nCount = 0;
     
-    sort(d.begin(), d.end());
-    
-    for(int i = 0; i < d.size(); i++){
-        if(budget - d[i] >= 0){
-            budget = budget - d[i];
-            answer++;
-        }
-        else
-            break;
-    }
+    sort(d.begin(), d.end(), less<int>());
 
+    while(nIndex < d.size() && answer + d[nIndex] <= budget)
+    {
+        answer += d[nIndex];
+        nIndex++;
+        nCount++;
+    }
     
-    return answer;
+    return nCount;
 }
