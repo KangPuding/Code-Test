@@ -5,26 +5,23 @@ using namespace std;
 
 string solution(string s) {
     string answer = "";
-    int index = 0;
+    int nCount = 0;
     
-    for(int i = 0; i < s.size(); i++) {
-        
-        if(s[i] == ' ') {
-            index = 0;
-            continue;
+    for(int i = 0; s[i] != '\0'; i++)
+    {
+        if (s[i] == ' ') {
+            answer += ' ';
+            nCount = 0; 
         }
-        
-        if(index % 2 == 1) {
-            if('A' <= s[i] && s[i] <= 'Z')
-                s[i] += 32;
+        else
+        {
+            if(nCount % 2 == 0)
+              answer += toupper(s[i]);
+            else
+                answer += tolower(s[i]);   
+            
+            nCount++;
         }
-        else {
-            if('a' <= s[i] && s[i] <= 'z')
-                s[i] -= 32;
-        }
-        
-        index++;
     }
-    
-    return answer = s;
+    return answer;
 }
