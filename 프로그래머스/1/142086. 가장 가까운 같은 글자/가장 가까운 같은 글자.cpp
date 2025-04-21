@@ -5,16 +5,19 @@ using namespace std;
 
 vector<int> solution(string s) {
     vector<int> answer;
-    
-    int index;
-    
-    for(int i = 0; i < s.size(); i++){
-            for(int j = 0; j < i; j++){
-                if(s[i] == s[j])
-                    index = i - j;
+
+    for (int i = 0; i < s.length(); i++) 
+    {
+        int distance = -1;
+
+        for (int j = 0; j < i; j++) 
+        {
+            if (s[i] == s[j]) 
+            {
+                distance = i - j; 
             }
-        answer.push_back(index);
-        index = -1;
+        }
+        answer.push_back(distance);
     }
     return answer;
 }
