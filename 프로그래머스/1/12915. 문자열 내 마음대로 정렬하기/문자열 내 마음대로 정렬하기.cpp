@@ -1,23 +1,35 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 
 using namespace std;
 
-int i;
-
-// cmp : 기본적으로 오름차순 지원, 오름차순 : < / 내림차순 : >
-// sort 할떄 맨 마지막에 넣어주면 끝
-bool cmp (string a, string b){
-    if(a[i] == b[i])
-        return a < b;
-    else
-        return a[i] < b[i];
-}
-
 vector<string> solution(vector<string> strings, int n) {
-    i = n;
-    sort(strings.begin(), strings.end(), cmp);
-    return strings;
+    vector<string> answer;
     
+    int nLength = strings.size();
+
+    for(int i = 0; i < nLength; i++)
+    {
+       for(int j = i + 1; j <= nLength - 1; j++)
+       {
+           string temp = strings[i];
+           
+           if(strings[i][n] > strings[j][n])
+           {
+               strings[i] = strings[j];
+               strings[j] = temp;
+           }
+
+           else if(strings[i][n] == strings[j][n])
+           {
+               if(strings[i]>strings[j])
+               {
+                    strings[i] = strings[j];
+                    strings[j] = temp;
+               }
+           }
+       }
+    }
+
+    return strings;
 }
