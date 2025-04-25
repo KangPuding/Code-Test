@@ -1,24 +1,23 @@
 #include <string>
 #include <vector>
-#include <map>
 
 using namespace std;
 
 vector<int> solution(vector<string> name, vector<int> yearning, vector<vector<string>> photo) {
     vector<int> answer;
     
-    map <string, int> m;
-    
-    for (int i = 0; i < name.size(); i++) {
-        m[name[i]] = yearning[i];
-	}
-
-    for(int i = 0; i < photo.size(); i++){
-        int cnt = 0;
-        for(int j = 0; j < photo[i].size(); j++){
-            cnt += m[photo[i][j]];
+    for(int i = 0; i < photo.size(); i++)
+    {
+        int nSum = 0;
+        for(int j = 0; j < photo[i].size(); j++)
+        {
+            for(int w = 0; w < name.size(); w++)
+            {
+                if(photo[i][j] == name[w])
+                    nSum += yearning[w];
+            }
         }
-        answer.push_back(cnt);
+        answer.push_back(nSum);
     }
     return answer;
 }
