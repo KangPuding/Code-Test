@@ -3,37 +3,41 @@
 
 using namespace std;
 
-string Tobinary (int num, int n){
-    string binary;
+string ToBinary(int num, int n)
+{
+    string sBinary = "";
     
-    for(int i = 0; i < n; i++){
-        if(num % 2 == 1){
-            binary = "#" + binary;
-            num /= 2;
-        }
-        else{
-            binary = " " + binary;
-            num /= 2;
-        }
+    for(int i = 0 ; i < n; i++)
+    {
+        if(num % 2 == 1)
+            sBinary = '1' + sBinary;
+        else
+            sBinary = '0' + sBinary;
+        
+        num /= 2;
     }
-    return binary;
+    return sBinary;
 }
+
 
 vector<string> solution(int n, vector<int> arr1, vector<int> arr2) {
     vector<string> answer;
     
-    for(int i = 0; i < n; i++){
-        string binary1 = Tobinary(arr1[i], n);
-        string binary2 = Tobinary(arr2[i], n);
-        
-        string tmp;
-        for(int j = 0; j < n; j++){
-            if(binary1[j] == '#' || binary2[j] == '#')
-                tmp += "#";
+    for(int i = 0; i < arr1.size(); i++)
+    {
+        string sBinary1 = ToBinary(arr1[i], n);
+        string sBinary2 = ToBinary(arr2[i], n);
+        string merged = "";
+
+        for(int j = 0; j < n; j++)
+        {
+            if(sBinary1[j] == '1' || sBinary2[j] == '1')
+                merged += '#';
             else
-                tmp += " ";
+                merged += ' ';
         }
-        answer.push_back(tmp);
+
+        answer.push_back(merged);
     }
     return answer;
 }
