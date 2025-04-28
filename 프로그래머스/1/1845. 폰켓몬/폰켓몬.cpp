@@ -2,15 +2,17 @@
 #include <set>
 using namespace std;
 
-int solution(vector<int> nums) {
-    
+int solution(vector<int> nums)
+{
     int answer = 0;
     set<int> s;
     
-    for(int i = 0; i < nums.size(); i++) {
-        s.insert(nums[i]);
-    }
+    s.insert(nums.begin(), nums.end());
     
+    int nUniqueCount = s.size();         
+    int nMaxPick = nums.size() / 2;      
+
+    answer = min(nUniqueCount, nMaxPick);  
     
-    return s.size() <= nums.size() / 2 ? s.size() : nums.size() / 2;
+    return answer;
 }
