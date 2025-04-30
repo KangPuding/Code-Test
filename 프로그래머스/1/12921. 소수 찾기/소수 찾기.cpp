@@ -3,18 +3,24 @@
 
 using namespace std;
 
-// 에라토스테네스의 체 (소수 구별하는 방식)
 int solution(int n) {
     int answer = 0;
-    vector<bool> v(n+1, true);
+    // 1 제외, 2의 배수 제외, 3의배수 제외, 5의 배수 제외, 7의 배수 제외 
+    vector<bool> vPrime(n + 1, true);
     
-    for(int i = 2; i <= n; i++){
-        if(v[i] == true){
-            for(int j = 2; j * i <= n; j++){
-                v[j * i] = false;
-            }
-            answer++;
+    for(int i = 2; i * i <= n; i++)
+    {
+        if(vPrime[i])
+        {
+            for(int j = i * i; j <= n; j += i)
+                vPrime[j] = false;
         }
+    }
+    
+    for(int i = 2; i <= n; i++)
+    {
+        if(vPrime[i])
+            answer++;
     }
     return answer;
 }
