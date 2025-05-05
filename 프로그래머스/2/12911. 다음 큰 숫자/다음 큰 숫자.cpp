@@ -20,7 +20,7 @@ int solution(int n) {
         nOneCount++;
 
     int nNext = n + 1;
-    int nCount = 0;
+    int nCount;
     while (nCount != nOneCount)
     {
         nCount = 0;
