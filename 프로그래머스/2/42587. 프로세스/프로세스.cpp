@@ -24,9 +24,7 @@ int solution(vector<int> priorities, int location) {
 		for (int i = 0; i < priorities.size(); i++)
 		{
 			if (priorities[i] > priorities[nCurrent])
-			{
 				bHigh = true;
-			}
 		}
 
 		if (bHigh)
