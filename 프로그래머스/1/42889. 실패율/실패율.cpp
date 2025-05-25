@@ -4,44 +4,47 @@
 
 using namespace std;
 
-vector<int> solution(int N, vector<int> stages) {
-    vector<int> answer;
-    
-    vector<int> stageCount(N + 2, 0);
-    for(int i = 0; i <stages.size(); i++)
-    {
-        stageCount[stages[i]]++;
-    }
-    
-    vector<double> failure(N + 1);
-    int nTotal = stages.size();
-    
-    for(int i = 0; i <= N; i++)
-    {
-        if(nTotal == 0)
-            failure[i] = 0.0;
-        else
-        {
-            failure[i] = (double)stageCount[i] / nTotal; 
-            nTotal -= stageCount[i];
-        }
-    }
-    
-    vector<pair<int, double>> temp;
-    for (int i = 1; i <= N; i++) 
-    {
-        temp.push_back({i, failure[i]});
-    }
-    
-    sort(temp.begin(), temp.end(), [](pair<int, double>& a, pair<int, double>& b) {
-        if (a.second == b.second)
-            return a.first < b.first; 
-        return a.second > b.second;  
-    });
+struct S_NODE 
+{
+    int stage;
+    double failureRate;
+};
 
-    for (int i = 0; i < temp.size(); i++) {
-        answer.push_back(temp[i].first);
+bool Compare(S_NODE a, S_NODE b) 
+{
+    if (a.failureRate == b.failureRate)
+        return a.stage < b.stage;
+    return a.failureRate > b.failureRate;
+}
+
+vector<int> solution(int N, vector<int> stages) {
+    vector<int> count(N + 2, 0);  
+    for (int s : stages) 
+    {
+        count[s]++;
     }
-    
+
+    vector<S_NODE> results;
+    int users = stages.size();
+
+    for (int i = 1; i <= N; i++)
+    {
+        double rate = 0.0;
+        if (users > 0) 
+        {
+            rate = (double)count[i] / users;
+            users -= count[i];
+        }
+        results.push_back({i, rate});
+    }
+
+    sort(results.begin(), results.end(), Compare);
+
+    vector<int> answer;
+    for (auto& r : results) 
+    {
+        answer.push_back(r.stage);
+    }
+
     return answer;
 }
