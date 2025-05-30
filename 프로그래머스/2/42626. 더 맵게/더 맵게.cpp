@@ -15,19 +15,16 @@ int solution(vector<int> scoville, int K) {
     
     int nFirst = 0;
     int nSecond = 0;
-    int nResult = 0;
     int nCount = 0;
     
     while(pq.size() >= 2 && pq.top() < K)
     {
-        nResult = 0;
         nFirst = pq.top();
         pq.pop();
         nSecond = pq.top();
         pq.pop();
         
-        nResult = nFirst + (nSecond * 2);
-        pq.push(nResult);
+        pq.push(nFirst + (nSecond * 2));
         nCount++;
     }
     
