@@ -1,17 +1,24 @@
 #include <string>
 #include <vector>
 
-using namespace std;
 
-vector<int> solution(string my_string) {
-    vector<int> answer(52, 0);
-    
-    for(char a : my_string) {
-        if(a >= 'A' && a <= 'Z')
-            answer[a - 'A']++;
-        else if(a >= 'a' && a <= 'z')
-            answer[a - 'a' + 26]++;
+std::vector<int> solution(std::string my_string) {
 
+    std::vector<int> answer;
+    char cAlpha = 'A';
+
+    while (cAlpha < 123) {
+        int nCheck = 0;
+        if (cAlpha == 91)
+            cAlpha = 97;
+
+        for (char c : my_string) {
+            if (c == cAlpha)
+                nCheck++;
+        }
+        answer.push_back(nCheck);
+        cAlpha++;
     }
-    return answer;
+    
+        return answer;
 }
