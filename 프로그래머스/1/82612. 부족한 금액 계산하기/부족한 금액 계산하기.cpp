@@ -2,19 +2,18 @@ using namespace std;
 
 long long solution(int price, int money, int count)
 {
-    long long nTotal = price;
-    long long mul = 2;
-    
-    for(int i = 1; i < count; i++)
-    {
-        nTotal += mul * price;
-        mul++;
+    long long nResult = 0;
+    long long answer = -1;
+
+    for (long long i = 1; i <= count; i++) {
+        long long n = price * i;
+        nResult += n;
     }
 
-    if(nTotal < money)
-        return 0;
-    else
-        nTotal = nTotal - money;
+    if(nResult > money)
+        answer = nResult - money;
+    else 
+        answer = 0;
     
-    return nTotal;
+    return answer;
 }
