@@ -1,40 +1,34 @@
 #include <string>
 #include <vector>
-#include <sstream>
 
 using namespace std;
 
 int solution(string s) {
-    
-    int result = 0;
-    
-    vector<string> a;
-    stringstream ss(s);
-    string temp;
-    
-    while(ss >> temp)
-        a.push_back(temp);
-    
-    
-    for(int i = 0; i < a.size(); i++){
-        if(a[i] == "Z")
-            result -= stoi(a[i - 1]);
+    int answer = 0;
+    std::string temp;
+    std::string sub;
+
+    for (int i = 0; i < s.size(); i++)
+    {
+        if ('Z' == s[i])
+        {
+            answer -= std::stoi(sub);
+        }
+        else if (s[i] == ' '&& temp.size() != 0)
+        {
+            answer += std::stoi(temp);
+            sub = temp;
+            temp.clear();
+        }
         else
-            result += stoi(a[i]);
+        {
+            temp.push_back(s[i]);
+        }
     }
-    
-    return result;    
+
+    if (temp.size() != 0)
+        answer += std::stoi(temp);
+
+    printf("%d", answer);
+    return answer;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
