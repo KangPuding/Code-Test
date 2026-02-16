@@ -1,25 +1,25 @@
 #include <string>
 #include <vector>
 
-using namespace std;
 
-vector<int> solution(vector<int> arr) {
-    vector<int> stk;
-    int i = 0;
-    
-     while(i < arr.size()){
-            if(stk.empty()){
-                stk.push_back(arr[i]);
-                i++;
-            }
-            else if(stk.empty() == 0 && stk[stk.size() - 1] < arr[i]){
-                stk.push_back(arr[i]);
-                i++;
-            }
-         else if(stk.empty() == 0 && stk[stk.size() - 1] >= arr[i]){
-             stk.pop_back();
-         }
-     }
-    
+std::vector<int> solution(std::vector<int> arr) {
+    std::vector<int> stk;
+int nIndex = 0;
+
+
+    while (nIndex < arr.size()) {
+
+        if (stk.empty()) {
+            stk.push_back(arr[nIndex]);
+            nIndex++;
+        }
+        else if (stk.back() >= arr[nIndex]) {
+            stk.pop_back();
+        }
+        else if (stk.back() < arr[nIndex]) {
+            stk.push_back(arr[nIndex]);
+            nIndex++;
+        }
+    }
     return stk;
 }
