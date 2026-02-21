@@ -5,26 +5,25 @@
 using namespace std;
 
 int solution(string my_string) {
-    int answer = 0;
     
-    stringstream s;
-    s.str(my_string);
+    std::stringstream ss(my_string);
     
-    s >> answer;
+    int nReuslt{};
+    int nSecond{};
+    char nCommand{};
+
+    ss >> nReuslt;
+
+    while (ss)
+    {
+        if (nCommand == '+')
+            nReuslt += nSecond;
+        else if (nCommand == '-')
+            nReuslt -= nSecond;
     
-    char ch;
-    int temp = 0;
+        ss >> nCommand >> nSecond;
+     }
+
+    return nReuslt;
     
-    while(s) {
-        
-        if (ch == '+') 
-            answer += temp;
-        
-        else if(ch == '-') 
-            answer -= temp;
-        
-        s >> ch >> temp;
-    }
-    
-    return answer;
 }
