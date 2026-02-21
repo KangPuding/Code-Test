@@ -5,17 +5,24 @@ using namespace std;
 
 vector<int> solution(vector<int> arr, vector<vector<int>> queries) {
     
-    vector<int> answer;
-    for(int i = 0; i < queries.size(); ++i){
-        int k = 1000001;
-        for(int j = queries[i][0]; j <= queries[i][1]; ++j){
-            if(arr[j] > queries[i][2] && arr[j] < k) 
-                k = arr[j];
+    std::vector<int> Result{};
+
+    for (int i = 0 ; i< queries.size(); i++)
+    {
+        int nNum = 1000001;
+        for (int j = queries[i][0]; j <= queries[i][1]; j++)
+        {
+            if (queries[i][2] < arr[j] && nNum > arr[j])
+                nNum = arr[j];
         }
-        if(k == 1000001) 
-            answer.emplace_back(-1);
-        else 
-            answer.emplace_back(k);
+        if (nNum == 1000001)
+            Result.push_back(-1);
+        else
+            Result.push_back(nNum);
     }
-    return answer;
+
+    for (int i = 0 ; i < Result.size(); i++)
+        printf("%d ", Result[i]);
+    
+    return Result;
 }
