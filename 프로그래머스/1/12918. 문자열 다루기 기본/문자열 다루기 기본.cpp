@@ -6,13 +6,23 @@ using namespace std;
 bool solution(string s) {
     bool answer = true;
     
-    if(s.size() != 4 && s.size() != 6)
-        return false;
+    int nLength = s.length();
+    int nCount = 0;
     
-    for(int i = 0; i < s.size(); i++)
+    if (nLength == 4 || nLength == 6)
     {
-        if(s[i] < 48 || s[i] > 57)
-            answer = false;
-    }   
+        for (int i = 0; i < nLength; i++)
+        {
+            if (48 <= s[i] && s[i] <= 57)
+                nCount++;
+            // 48 ~ 57
+        }
+    }
+
+    if (nCount == nLength)
+        answer = true;
+    else
+        answer = false;
+    
     return answer;
 }
