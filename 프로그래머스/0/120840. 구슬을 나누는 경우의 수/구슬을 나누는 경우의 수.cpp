@@ -17,4 +17,3 @@ int solution(int balls, int share) {
     
     return round(answer);
 }
-
