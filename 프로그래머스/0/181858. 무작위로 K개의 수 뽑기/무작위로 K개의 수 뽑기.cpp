@@ -1,15 +1,30 @@
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <unordered_set>
 
 using namespace std;
 
 vector<int> solution(vector<int> arr, int k) {
-    vector<int> answer;
     
-    for(int i = 0; i < arr.size(); ++i) {
-        if(find(answer.begin(), answer.end(), arr[i]) == answer.end()) answer.push_back(arr[i]);
+    std::unordered_set<int> s;
+    std::vector<int> Result{};
+
+    for (int i = 0; i < arr.size(); i++)
+    {
+        if (s.size() < k) {
+            auto ret = s.insert(arr[i]);
+            if (ret.second) {
+                Result.push_back(arr[i]);
+            }
+        }
     }
-    answer.resize(k, -1);
-    return answer;
+
+    if (Result.size() < k)
+    {
+        while (Result.size() < k) {
+            Result.push_back(-1);
+        }
+    }
+    
+    return Result;
 }
