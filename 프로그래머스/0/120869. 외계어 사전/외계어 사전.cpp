@@ -1,22 +1,41 @@
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 int solution(vector<string> spell, vector<string> dic) {
-    int answer = 0;
-    bool check = false;
-    for (int i = 0; i < dic.size(); i++) {
-        if (dic[i].size() == spell.size()) {
-            check = true;
-            for (int j = 0; j < spell.size(); j++) {
-                if (dic[i].find(spell[j]) == string::npos) {
-                    check = false;
-                    break;
-                }
-            }
-        }
-        if (check == true) return 1;
+    
+    int nResult = 2;
+    std::string Spells{};
+    std::vector<bool> isCount;
+
+    for (int i = 0; i < spell.size(); i++) {
+        Spells += spell[i];
     }
-    return 2;
+
+    sort(Spells.begin(), Spells.end());
+
+    for (int i = 0; i < dic.size(); i++)
+    {
+        if (Spells.size() == dic[i].size())
+        {
+            int nCount = 0;
+            sort(dic[i].begin(), dic[i].end());
+            for (int j = 0; j < dic[i].size(); j++)
+            {
+                if (Spells[j] == dic[i][j])
+                    nCount++;
+            }
+
+            if (nCount == Spells.size())
+                isCount.push_back(true);
+        }
+    }
+    for (int i = 0; i < isCount.size(); i++) {
+        if (isCount[i])
+            nResult = 1;
+    }
+    
+    return nResult;
 }
