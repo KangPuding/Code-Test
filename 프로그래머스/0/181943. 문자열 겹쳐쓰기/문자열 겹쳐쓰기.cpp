@@ -4,13 +4,23 @@
 using namespace std;
 
 string solution(string my_string, string overwrite_string, int s) {
-    string answer = "";
+        int nIndex = 0;
+        std::string Str {};
+
+        for (int i = 0; i < s; i++)
+        {
+            Str += my_string[i];
+            nIndex++;
+        }
+
+        Str += overwrite_string;
+        nIndex += overwrite_string.size();
+
+        if (nIndex < my_string.size())
+        {
+            for (int i = nIndex; i < my_string.size(); i++)
+                Str += my_string[i];
+        }
     
-    
-    for(int i = 0; i < overwrite_string.size(); i++){
-        my_string[s + i] = overwrite_string[i];
-    }
-    
-    answer = my_string;
-    return answer;
+    return Str;
 }
