@@ -1,26 +1,25 @@
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <map>
 
 using namespace std;
 
 int solution(vector<int> rank, vector<bool> attendance) {
-    vector<pair<int, int>> ok;
-    
-    for(int i = 0; i < rank.size(); i++){
-            ok.push_back({rank[i], i});
-    }
-    
-    sort(ok.begin(), ok.end());
 
-    vector<int> t;
-    for(auto& s : ok) {
-        if(attendance[s.second])
-            t.push_back(s.second);
-        if(t.size() == 3)
-            break;
+    std::map<int, int> map{};
+
+    for (int i = 0; i < rank.size(); i++) {
+        if (attendance[i]) {
+            map.insert(std::pair<int, int>(rank[i], i));
+        }
     }
-    
-    
-    return ((10000 * t[0]) + (100 * t[1]) + t[2]);
+
+    std::vector<int> participation{};
+
+    for (std::map<int, int>::const_iterator it = map.begin(); it != map.end(); ++it)
+    {
+        participation.push_back(it->second);
+    }
+
+    return 10000 * participation[0] + 100 * participation[1] + participation[2];
 }
