@@ -1,35 +1,58 @@
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 vector<int> solution(string s) {
     vector<int> answer;
-    int nRemoveZero = 0;
-    int nRecycle = 0;
-    
-    
-    while(s != "1")
+    int nTotalRemoveCount = 0;
+    int nCount = 0;
+
+    int nLength = s.size();
+
+    while (nLength != 1)
     {
-        int nCountOne = 0;
-        nRecycle++;
-        for(int i = 0; i < s.size(); i++)
+        int nRemoveZeroCount = 0;
+        int nRemainLength = 0;
+        for (int i = 0 ; i < nLength; i++)
         {
-            if(s[i] == '0')
-                nRemoveZero++;
-            else
-                nCountOne++;             
+            if (s[i] == '0')
+                nRemoveZeroCount++;
         }
-        
-        string Str = "";
-        while (nCountOne > 0) 
+        nTotalRemoveCount += nRemoveZeroCount;
+        s.erase(s.begin(), s.end());
+        nRemainLength = nLength - nRemoveZeroCount;
+
+        while (nRemainLength > 1)
         {
-            Str = char(nCountOne % 2 + '0') + Str;
-            nCountOne /= 2;
+            if (nRemainLength % 2 == 0)
+            {
+                s += "0";
+                nRemainLength /= 2;
+            }
+            else if (nRemainLength % 2 == 1)
+            {
+                s += "1";
+                nRemainLength /= 2;
+            }
         }
-        s = Str;
+
+        if (nRemainLength == 1)
+            s += "1";
+        else
+            s += "0";
+
+        std::reverse(s.begin(), s.end());
+        printf("%s\n", s.c_str());
+
+        nLength = s.size();
+        nCount++;
     }
-    answer.push_back(nRecycle);
-    answer.push_back(nRemoveZero);
+    printf("%d\n", nTotalRemoveCount);
+    printf("%d\n", nCount);
+    
+    answer.push_back(nCount);
+    answer.push_back(nTotalRemoveCount);
     return answer;
 }
