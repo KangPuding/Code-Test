@@ -7,17 +7,26 @@
 using namespace std;
 
 int solution(vector<int> d, int budget) {
-    int answer = 0;
     int nIndex = 0;
     int nCount = 0;
-    
-    sort(d.begin(), d.end(), less<int>());
+    int nSum = 0;
+    sort(d.begin(), d.end());
 
-    while(nIndex < d.size() && answer + d[nIndex] <= budget)
+    while (nIndex < d.size())
     {
-        answer += d[nIndex];
+        int n{};
+        for (int i = nIndex; i < d.size(); i++)
+        {
+            if (nSum + d[i] <= budget)
+            {
+                nSum += d[i];
+                n++;
+            }
+        }
+
+        if (nCount < n)
+            nCount = n;
         nIndex++;
-        nCount++;
     }
     
     return nCount;
