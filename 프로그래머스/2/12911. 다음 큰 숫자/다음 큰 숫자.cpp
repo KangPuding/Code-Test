@@ -1,44 +1,40 @@
 #include <string>
 #include <vector>
-#include <algorithm>
 
-using namespace std;
+void BinaryCount (int nData, int &nCount)
+{
+    while (nData != 1) {
+        if (nData % 2 == 1)
+            nCount++;
+
+        nData /= 2;
+    }
+
+    if (nData == 1)
+        nCount++;
+}
 
 int solution(int n) {
-    int answer = 0;
-    int nBackUpN = n;
-    int nOneCount = 0;
 
-    while (nBackUpN != 1)
+    int nResult{};
+    int nCount{};
+    BinaryCount(n, nCount);
+
+    int nBackUp = n;
+    bool isTrue = true;
+
+    while (isTrue)
     {
-        if(nBackUpN % 2 == 1)
-            nOneCount++;
+        n++;
+        int UpCount{};
+        BinaryCount(n, UpCount);
 
-        nBackUpN /= 2;
-    }
-    if(nBackUpN == 1)
-        nOneCount++;
+        if (nBackUp < n && nCount == UpCount)
+            isTrue = false;
 
-    int nNext = n + 1;
-    int nCount;
-    while (nCount != nOneCount)
-    {
-        nCount = 0;
-        int nTmp = nNext;
-
-        while (nTmp)
-        {
-            if (nTmp % 2 == 1) 
-                nCount++;
-            
-            nTmp /= 2;
-        }
-
-        if (nCount == nOneCount)
-            answer = nNext;
-
-        nNext++;
     }
 
-    return answer;
+    printf("%d\n", n);
+    
+    return n;
 }
