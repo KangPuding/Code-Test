@@ -1,48 +1,25 @@
 #include <iostream>
 #include <string>
+#include <vector>
 #include <stack>
 
 using namespace std;
 
 int solution(string s)
 {
-     stack<char> st;
-    
-    for (char ch : s) 
-    {
-        if (!st.empty() && st.top() == ch) 
-            st.pop(); 
-        else 
-            st.push(ch);
+    std::vector<char> v;
+
+    for (int i = 0; i < s.size(); i++) {
+
+        if (!v.empty() && v.back() == s[i]) {
+            v.pop_back();
+        }
+        else
+            v.push_back(s[i]);
     }
-    
-    if(st.empty())
+    if (v.empty())
         return 1;
-    
-    return 0;
+    else
+        return 0;
           
 }
-
-
- //int answer = -1;
-
- //string Str = s;
- //int nIndex = 0;
-
- //while (nIndex < Str.length())
- //{
- //    if (nIndex < Str.length() - 1 && Str[nIndex] == Str[nIndex + 1])
- //    {
- //        Str.erase(nIndex, 2);
- //        nIndex = 0;
- //    }
- //    else
- //        nIndex++;
- //}
-
- //if (Str.empty())
- //    answer = 1;
- //else
- //    answer = 0;
-
- //return answer;
