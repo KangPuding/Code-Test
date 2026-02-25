@@ -4,22 +4,24 @@
 using namespace std;
 
 vector<int> solution(int l, int r) {
-    vector<int> answer;
-    
-    for(int i = l; i <= r; i++){
-        string num = to_string(i);
-        bool check = true;
-        for(char s : num){
-            if(s != '0' && s != '5'){
-                check = false;
-                break;
+     std::vector<int> v{};
+
+    for (int i = l; i <= r; i++) {
+        std::string Str = std::to_string(i);
+        bool isTrue = true;
+
+        for (int j = 0; j < Str.length(); j++) {
+            if (Str[j] != '0' && Str[j] != '5') {
+                isTrue = false;
             }
         }
-        if(check)
-            answer.push_back(i);
+
+        if (isTrue)
+            v.push_back(i);
     }
-    if(answer.empty())
-        answer.push_back(-1);
     
-    return answer;
+    if(v.empty())
+        v.push_back(-1);
+    
+    return v;
 }
