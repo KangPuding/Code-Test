@@ -4,16 +4,41 @@
 using namespace std;
 
 int solution(string A, string B) {
-    if(A == B) 
-        return 0;
     
-    for(int i = 1; i < A.size(); i++) {
-        char s = A[A.size() - 1];
-        A = A.substr(0, A.size() - 1);
-        A = s + A;
-        
-        if(A == B) 
-            return i;
-    }
-    return -1;
+        int nAsize = A.size();
+        bool isTrue = true;
+        int nRecycle = 0;
+        int nResult{};
+
+        while (isTrue && nRecycle < nAsize)
+        {
+            int nCount = 0;
+            for (int i = 0; i < nAsize; i++)
+            {
+                if (A[i] == B[i])
+                    nCount++;
+            }
+
+            if (nAsize  == nCount)
+            {
+                isTrue = false;
+            }
+            else
+            {
+                std::string Str = A.substr(nAsize - 1,nAsize);
+                Str += A.substr(0, nAsize - 1);
+
+                A = Str;
+                nRecycle++;
+            }
+        }
+
+        if (!isTrue && nRecycle == 0)
+            nResult = 0;
+        else if (!isTrue)
+            nResult = nRecycle;
+        else
+            nResult = -1;
+    
+    return nResult;
 }
