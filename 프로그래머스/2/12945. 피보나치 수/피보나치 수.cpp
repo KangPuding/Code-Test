@@ -4,17 +4,24 @@
 using namespace std;
 
 int solution(int n) {
-    int answer = 0;
-    int nLength = n;
-    int arData[nLength];
-    
-    arData[0] = 0;
-    arData[1] = 1;
-    
-    for(int i = 2; i <= n; i++)
+
+    int nResult{};
+    std::vector<int> v;
+    v.push_back(0);
+    v.push_back(1);
+
+    int nIndex = 2;
+
+    while (n >= nIndex)
     {
-        arData[i] = (arData[i - 1] % 1234567)  + (arData[i - 2] % 1234567);
+        int nSum = (v[nIndex - 2] + v[nIndex - 1]) % 1234567;
+        v.push_back(nSum);
+
+        nIndex++;
     }
-    answer = arData[n] % 1234567;
-    return answer;
+    
+    nResult = v[n];
+    
+    return nResult;
+    
 }
