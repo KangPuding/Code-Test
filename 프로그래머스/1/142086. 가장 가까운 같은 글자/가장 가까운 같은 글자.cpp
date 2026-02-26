@@ -4,20 +4,44 @@
 using namespace std;
 
 vector<int> solution(string s) {
-    vector<int> answer;
+    std::vector<int> v{};
+    char c{};
+    int nCount = 0;
 
-    for (int i = 0; i < s.length(); i++) 
+    for (int i = 0; i < s.length(); i++)
     {
-        int distance = -1;
+        c = s[i];
 
-        for (int j = 0; j < i; j++) 
+        if (v.empty())
+            v.push_back(-1);
+        else
         {
-            if (s[i] == s[j]) 
+            bool isTrue = false;
+            int nIndex = i;
+            nCount = 0;
+            while (!isTrue && nIndex >= 0)
             {
-                distance = i - j; 
+                nIndex--;
+
+                if (s[nIndex] == c) {
+                    nCount++;
+                    isTrue = true;
+                }
+                else
+                    nCount++;
+
             }
+
+            if (isTrue)
+                v.push_back(nCount);
+            else
+                v.push_back(-1);
         }
-        answer.push_back(distance);
     }
-    return answer;
+
+
+    for (int i = 0; i < v.size(); i++)
+        printf("%d ", v[i]);
+    
+    return v;
 }
