@@ -4,13 +4,14 @@
 using namespace std;
 
 vector<int> solution(vector<int> arr, vector<int> query) {
-    
-    for(int i = 0; i < query.size(); i++){
-        if(i % 2 == 0)
-            arr.erase(arr.begin() + query[i] + 1, arr.end());
-        else 
-            arr.erase(arr.begin(), arr.begin() + query[i]);
 
+        for (int i = 0; i < query.size(); i++)
+    {
+        int nData = query[i];
+        if (i % 2 == 0)
+            arr.erase(arr.begin() + nData + 1, arr.end());
+        else
+            arr.erase(arr.begin(), arr.begin() + nData);
     }
-        return arr;
+    return arr;
 }
