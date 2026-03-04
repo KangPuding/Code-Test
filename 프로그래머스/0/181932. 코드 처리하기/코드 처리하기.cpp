@@ -4,31 +4,35 @@
 using namespace std;
 
 string solution(string code) {
-    string answer;
-    int mode = 0;
     
-    for(int i = 0; i < code.size(); i++){
-       
-        if(mode == 0){
-            if(code[i] != '1'){
-                if(i % 2 == 0)
-                    answer += code[i];
-            }
-                else
-                    mode = 1;
+    std::string Str = "";
+    std::string ret = "";
+    int mode = 0;
+
+    for (int i = 0; i < code.length(); i++)
+    {
+        if (code[i] == '1')
+        {
+            if (mode == 0)
+                mode = 1;
+            else if (mode == 1)
+                mode = 0;
         }
-        
-        else if(mode == 1){
-            if(code[i] != '1'){
-                if(i % 2 != 0)
-                    answer += code[i];
-            }
-                else
-                    mode = 0;
+        else if (mode == 1 && i % 2 == 1)
+        {
+            ret += code[i];
+        }
+        else if (mode == 0 && i % 2 == 0)
+        {
+            ret += code[i];
         }
     }
-    if(answer.empty())
-        return "EMPTY";
+    
+    if(ret.empty())
+        Str = "EMPTY";
     else
-        return answer;
+        Str = ret;
+    
+    return Str;
+        
 }
