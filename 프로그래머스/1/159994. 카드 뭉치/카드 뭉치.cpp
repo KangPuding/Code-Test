@@ -4,19 +4,29 @@
 using namespace std;
 
 string solution(vector<string> cards1, vector<string> cards2, vector<string> goal) {
-    
-    int nIdx1 = 0;
-    int nIdx2 = 0;
+    bool isTrue = true;
+    int nIndex = 0;
+    int nCardIndex1 = 0;
+    int nCardIndex2 = 0;
 
-    for (int i = 0; i < goal.size(); i++) {
-        if (nIdx1 < cards1.size() && cards1[nIdx1] == goal[i]) {
-            nIdx1++;
-        } else if (nIdx2 < cards2.size() && cards2[nIdx2] == goal[i]) {
-            nIdx2++;
-        } else {
-            return "No"; 
+    while (isTrue && nIndex < goal.size())
+    {
+        if (goal[nIndex] == cards1[nCardIndex1])
+        {
+            nIndex++;
+            nCardIndex1++;
         }
+        else if (goal[nIndex] == cards2[nCardIndex2])
+        {
+            nIndex++;
+            nCardIndex2++;
+        }
+        else
+            isTrue = false;
     }
 
-    return "Yes"; 
+    if (isTrue && nIndex == goal.size())
+        return "Yes";
+    else
+        return "No";
 }
