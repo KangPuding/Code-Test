@@ -5,35 +5,41 @@
 using namespace std;
 
 int solution(int k, vector<int> tangerine) {
-    vector<int> nBox;
+    
     sort(tangerine.begin(), tangerine.end());
-    
-    int nCurrent = tangerine[0];
+    std::vector<std::pair<int,int>> A_Count{};
+
     int nCount = 1;
-    
-    for(int i = 1; i < tangerine.size(); i++)
+    int nData = tangerine[0];
+    for (int i = 1; i < tangerine.size() + 1; i++)
     {
-        if(tangerine[i] == nCurrent)
+        if (nData == tangerine[i])
             nCount++;
         else
         {
-            nBox.push_back(nCount);
-            nCurrent = tangerine[i];
+            A_Count.push_back(std::make_pair(nCount, nData));
+            nData = tangerine[i];
             nCount = 1;
         }
     }
-    nBox.push_back(nCount); 
-    
-    sort(nBox.begin(), nBox.end(), greater<int>());
-    
+
+    sort(A_Count.begin(), A_Count.end(), std::greater<>());
+
+    bool isTrue = true;
     int nIndex = 0;
     int nSum = 0;
-    
-    while(nSum < k)
+    int nMinCount = 0;
+    while (isTrue)
     {
-        nSum += nBox[nIndex];
-        nIndex++;
+        if (nSum < k)
+        {
+            nSum += A_Count[nIndex].first;
+            nIndex++;
+            nMinCount++;
+        }
+        else
+            isTrue = false;
     }
 
-    return nIndex;
+    return nMinCount;
 }
