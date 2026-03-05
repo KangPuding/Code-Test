@@ -4,14 +4,22 @@
 using namespace std;
 
 int solution(int a, int b, int n) {
-    int answer = 0;
-    int nExchange = 0;
     
-    while(n >= a)
+    int nResult{};
+    int nExchange{};
+    int nRemain{};
+    int nRecieved{};
+
+    while (n >= a)
     {
         nExchange = n / a;
-        answer += nExchange * b;
-        n = n - (nExchange * a) + (nExchange * b);
+        nRemain = n % a;
+        nRecieved = nExchange * b;
+
+        nResult += nRecieved;
+
+        n = nRecieved + nRemain;
     }
-    return answer;
+    
+    return nResult;
 }
