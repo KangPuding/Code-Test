@@ -4,28 +4,31 @@
 using namespace std;
 
 vector<int> solution(int brown, int yellow) {
-    vector<int> answer;
-    int nCarpet = brown + yellow;
-    int nWidth = 0;
-    int nHeight = 0;
-    
-    for(int h = 3; h <= nCarpet / 3; h++)
+
+    int nIndex = 1;
+    int nH = 0;
+    int nW = 0;
+    int nSum = brown + yellow;
+
+    bool isTrue = false;
+
+    while (!isTrue)
     {
-        if(nCarpet % h == 0)
-        {
-            int w = nCarpet / h;
-            if((w - 2) * (h - 2) == yellow)
-            {
-                nWidth = w;
-                nHeight = h;
-                
-                h = nCarpet;
-            }  
-        }
+       if (nSum % nIndex == 0)
+       {
+           nH = nIndex;
+           nW = nSum / nIndex;
+
+           if ((nH - 2) * (nW - 2) == yellow)
+               isTrue = true;
+       }
+        nIndex++;
     }
     
-    answer.push_back(nWidth);
-    answer.push_back(nHeight);
+    std::vector<int> vResult{};
     
-    return answer;
+    vResult.push_back(nW);
+    vResult.push_back(nH);
+    
+    return vResult;
 }
