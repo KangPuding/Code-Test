@@ -1,35 +1,27 @@
 #include <string>
 #include <vector>
+#include <algorithm>
 
 using namespace std;
 
 vector<string> solution(vector<string> strings, int n) {
-    vector<string> answer;
-    
-    int nLength = strings.size();
+     
+    std::vector<std::pair<char, int>> backUp{};
+    sort(strings.begin(), strings.end());
 
-    for(int i = 0; i < nLength; i++)
+    for (int i = 0; i < strings.size(); i++)
     {
-       for(int j = i + 1; j <= nLength - 1; j++)
-       {
-           string temp = strings[i];
-           
-           if(strings[i][n] > strings[j][n])
-           {
-               strings[i] = strings[j];
-               strings[j] = temp;
-           }
-
-           else if(strings[i][n] == strings[j][n])
-           {
-               if(strings[i]>strings[j])
-               {
-                    strings[i] = strings[j];
-                    strings[j] = temp;
-               }
-           }
-       }
+        backUp.push_back(std::make_pair(strings[i][n], i));
     }
 
-    return strings;
+    sort(backUp.begin(), backUp.end());
+
+    std::vector<std::string> Result{};
+
+    for (int i = 0 ; i < backUp.size(); i++)
+    {
+        Result.push_back(strings[backUp[i].second]);
+    }
+    
+    return Result;
 }
