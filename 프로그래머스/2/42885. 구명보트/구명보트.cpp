@@ -5,20 +5,28 @@
 using namespace std;
 
 int solution(vector<int> people, int limit) {
-    int answer = 0;
-    int nLight = 0;
-    int nHeavy = people.size() - 1;
-    sort(people.begin(), people.end());
     
-    while(nLight <= nHeavy)
-    {
-        if(people[nLight] + people[nHeavy] <= limit)
-            nLight++;
-        
-        nHeavy--;
-        answer++;
+    sort(people.begin(), people.end(), std::greater<>());
 
+    int nCount = 0;
+    int nIndex = 0;
+
+    while (nIndex < people.size())
+    {
+        int nMaxSize = people.size();
+
+        if (people[nIndex] + people[nMaxSize - 1] <= limit)
+        {
+            people.pop_back();
+            nIndex++;
+            nCount++;
+        }
+        else
+        {
+            nIndex++;
+            nCount++;
+        }
     }
     
-    return answer;
+    return nCount;
 }
