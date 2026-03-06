@@ -5,48 +5,36 @@
 using namespace std;
 
 int solution(vector<int> array) {
+    
     sort(array.begin(), array.end());
-    
-    vector<int> nValue;
-    vector<int> nIndex;
-    
-    int nCurrent = array[0];
+
+    int nData = array[0];
     int nCount = 1;
-    
-    for(int i = 1; i < array.size(); i++)
+
+    std::vector<std::pair<int,int>> nResult;
+
+    if (array.size() != 1)
     {
-        if(array[i] == nCurrent)
-            nCount++;
-        else
+        for (int i = 1; i < array.size(); i++)
         {
-            nValue.push_back(nCurrent);
-            nIndex.push_back(nCount);
-            nCurrent = array[i];
-            nCount = 1;
+            if (nData != array[i])
+            {
+                nResult.push_back(std::pair<int,int>(nCount,nData));
+                nData = array[i];
+                nCount = 1;
+            }
+            else
+                nCount++;
         }
-    }   
-    nValue.push_back(nCurrent);
-    nIndex.push_back(nCount);
-    
-    
-    int nMax = nIndex[0];
-    int nResult = nValue[0];
-    bool bFind = false;
-    
-    for(int i = 1; i < nIndex.size(); i++)
-    {
-        if(nMax < nIndex[i])
-        {
-            nMax = nIndex[i];
-            nResult = nValue[i];
-            bFind = false;
-        }
-        else if (nIndex[i] == nMax)
-            bFind = true;
     }
+
+    nResult.push_back(std::pair<int,int>(nCount,nData));
     
-    if (bFind) 
+    sort(nResult.begin(), nResult.end(), std::greater<>());
+    
+    
+    if (nResult[0].first == nResult[1].first)
         return -1;
-        
-    return nResult;
+    else
+        return nResult[0].second;
 }
