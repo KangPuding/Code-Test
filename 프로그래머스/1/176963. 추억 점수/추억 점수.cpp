@@ -4,20 +4,28 @@
 using namespace std;
 
 vector<int> solution(vector<string> name, vector<int> yearning, vector<vector<string>> photo) {
-    vector<int> answer;
     
-    for(int i = 0; i < photo.size(); i++)
+    std::vector<std::pair<std::string, int>> v{};
+
+    for (int i = 0; i < name.size(); i++) {
+        v.push_back(make_pair(name[i],yearning[i]));
+    }
+
+    std::vector<int> nResult{};
+
+    for (int i = 0; i < photo.size(); i++)
     {
-        int nSum = 0;
-        for(int j = 0; j < photo[i].size(); j++)
+        int nCount = 0;
+        for (int j = 0; j < photo[i].size(); j++)
         {
-            for(int w = 0; w < name.size(); w++)
-            {
-                if(photo[i][j] == name[w])
-                    nSum += yearning[w];
+            std::string Str = photo[i][j];
+            for (int k = 0; k < v.size(); k++) {
+                if (Str == v[k].first)
+                    nCount += v[k].second;
             }
         }
-        answer.push_back(nSum);
+        nResult.push_back(nCount);
     }
-    return answer;
+    
+    return nResult;
 }
