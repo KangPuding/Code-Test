@@ -3,28 +3,35 @@
 
 using namespace std;
 
-int GCD(int n1, int n2)
+int GCD(int a, int b)
 {
- 
-    while(n2 != 0)
-    {
-        int nDiv = n1 % n2;
-        n1 = n2;
-        n2 = nDiv;
-    }
-    
-    return n1;
+    if (b == 0)
+        return a;
+
+    return GCD(b, a % b);
+}
+
+int LCM(int a, int b)
+{
+    return a / GCD(a, b) * b;
 }
 
 int solution(vector<int> arr) {
 
-    int LCM = arr[0];
+    int a = arr[0];
+    int b{};
+    int nCur{};
     
-    for(int i = 1; i < arr.size(); i++)
+    if (arr.size() == 1)
+        return a;
+    else
     {
-        int gcd = GCD(LCM, arr[i]);
-        LCM = (LCM * arr[i]) / gcd;
+        for (int i = 1; i < arr.size(); i++)
+        {
+            b = arr[i];
+            nCur = LCM(a, b);
+            a = nCur;
+        }
     }
-    
-    return LCM;
+    return a;
 }
