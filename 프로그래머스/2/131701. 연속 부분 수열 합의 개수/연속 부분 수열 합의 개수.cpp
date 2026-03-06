@@ -1,30 +1,35 @@
 #include <string>
 #include <vector>
-#include <algorithm>
+#include <set>
 
 using namespace std;
 
 int solution(vector<int> elements) {
-    vector<int> Result;
-    vector<int> numerical(elements.begin(), elements.end());
-    numerical.insert(numerical.end(), elements.begin(), elements.end());
-    
-    for(int Len = 1; Len <= elements.size(); Len++)
+    std::vector<int> copy_elements = elements;
+    copy_elements.insert(copy_elements.end(), elements.begin(), elements.end());
+
+    int n = 1;
+    std::set<int> set;
+
+    while (n - 1< elements.size())
     {
-        for(int start = 0; start < elements.size(); start++)
+        int nFront = 0;
+        int nRear = n;
+
+        while (nRear < copy_elements.size())
         {
             int nSum = 0;
-            for(int end = 0; end < Len; end++)
+            for (int i = nFront; i < nRear; i++)
             {
-                nSum += numerical[start + end];
+                nSum += copy_elements[i];
             }
-            Result.push_back(nSum);
+            auto it = set.insert(nSum);
+
+            nFront++;
+            nRear++;
         }
+        n++;
     }
-    
-    sort(Result.begin(), Result.end());
-    auto it = unique(Result.begin(), Result.end());
-    Result.erase(it, Result.end());
-    
-    return Result.size();
+        
+        return set.size();
 }
