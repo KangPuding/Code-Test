@@ -2,24 +2,23 @@
 
 using namespace std;
 
-int Mul(int nData)
-{
-    if(nData % 2 != 0)
-        return nData + 1;
-    
-    return nData;
-}
-
 int solution(int n, int a, int b)
 {
-    int answer = 0;
-    
-    while(a != b)
+    int nRoundCount = 0;
+    bool isTrue = false;
+
+    while (!isTrue)
     {
-        a = Mul(a) / 2;
-        b = Mul(b) / 2;
-        answer++;
+        if (a < b && (a + 1) / 2 == (b + 1) / 2)
+            isTrue = true;
+        else if (a > b && (b + 1) / 2 == (a + 1) / 2)
+            isTrue = true;
+
+        a = (a + 1) / 2;
+        b = (b + 1) / 2;
+
+        nRoundCount++;
     }
     
-    return answer;
+    return nRoundCount;
 }
