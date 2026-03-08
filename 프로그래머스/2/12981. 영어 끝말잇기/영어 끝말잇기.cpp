@@ -6,21 +6,33 @@
 using namespace std;
 
 vector<int> solution(int n, vector<string> words) {
-    std::set<std::string> saveWords;
-    
-    for(int i = 0; i < words.size(); i++)
+   
+    std::set<std::string> save{};
+    bool isTrue = true;
+    int nIndex = 0;
+    int nCount = 1;
+
+    std::string CurrentWord{};
+    std::string PrevWord{};
+
+    while (nIndex < words.size() && isTrue)
     {
-        std::string nCurrent = words[i];
-        
-        if(nCurrent.length() < 2 || saveWords.count(nCurrent))
-            return { i % n + 1, i / n + 1 };
-        
-        if (i > 0 && words[i - 1].back() != nCurrent.front())
-            return { i % n + 1, i / n + 1 };
-        
-        saveWords.insert(nCurrent);
+        CurrentWord = words[nIndex];
+
+        auto it = save.insert(words[nIndex]);
+        if (!it.second)
+            isTrue = false;
+        else if (nIndex != 0 && CurrentWord[0] != PrevWord.back())
+            isTrue = false;
+        else {
+            PrevWord = CurrentWord;
+            nIndex++;
+        }
+        nCount++;
     }
     
-    return { 0, 0 };
-
+    if(isTrue)
+        return {0,0};
+    else
+        return {nIndex % n + 1, nIndex / n + 1};
 }
