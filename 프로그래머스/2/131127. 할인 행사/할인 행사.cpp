@@ -1,36 +1,47 @@
 #include <string>
 #include <vector>
+#include <unordered_map>
 
 using namespace std;
 
-bool allZero(const vector<int>& vec) {
-    for (int x : vec) {
-        if (x != 0)
-            return false;
-    }
-    return true;
-}
-
 int solution(vector<string> want, vector<int> number, vector<string> discount) {
     
-    int nCount = 0;
-    
-    for (int nStart = 0; nStart <= discount.size() - 10; nStart++) 
+    std::unordered_map<std::string, int> m_discount{};
+
+    int nNumber = 0;
+
+    for (int i = 0; i < number.size(); i++) {
+        nNumber += number[i];
+    }
+
+    for (int i = 0; i < nNumber; i++) {
+        m_discount[discount[i]]++;
+    }
+
+    int nIndex = 0;
+    int nResult = 0;
+
+    while (nIndex + nNumber <= discount.size())
     {
-        vector<int> temp = number;
-        for(int n = nStart; n < nStart + 10; n++)
+        int nCorrect = 0;
+        for (int i = 0; i < want.size(); i++)
         {
-            for(int i = 0; i < want.size(); i++)
+            if (m_discount[want[i]] == number[i])
             {
-                if(discount[n] == want[i])
-                {
-                    temp[i]--;
-                }
+                nCorrect++;
             }
         }
-        
-        if(allZero(temp))
-            nCount++;
+
+        if (nCorrect == want.size())
+            nResult++;
+
+        if (nIndex + nNumber < discount.size())
+        {
+            m_discount[discount[nIndex]]--;
+            m_discount[discount[nIndex + nNumber]]++;
+        }
+        nIndex++;
     }
-    return nCount;
+    
+    return nResult;
 }
