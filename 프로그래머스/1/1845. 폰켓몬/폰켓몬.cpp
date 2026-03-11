@@ -1,18 +1,25 @@
 #include <vector>
 #include <set>
+
 using namespace std;
 
 int solution(vector<int> nums)
 {
-    int answer = 0;
-    set<int> s;
-    
-    s.insert(nums.begin(), nums.end());
-    
-    int nUniqueCount = s.size();         
-    int nMaxPick = nums.size() / 2;      
+    std::set<int> set{};
+    int nNumCount = 0;
+    int nResult{};
 
-    answer = min(nUniqueCount, nMaxPick);  
+    for (int i = 0; i < nums.size(); ++i) {
+        auto it = set.insert(nums[i]);
+
+        if (it.second)
+            nNumCount++;
+    }
     
-    return answer;
+    if (nums.size() / 2 > nNumCount)
+        nResult = nNumCount;
+    else
+        nResult =  nums.size() / 2;
+    
+    return nResult;
 }
