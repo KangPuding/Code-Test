@@ -1,22 +1,22 @@
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include <map>
 
 using namespace std;
 
 int solution(vector<vector<string>> clothes) {
-    unordered_map<string, int> typeCount;
+    
+    std::map<std::string, int> clothes_map;
 
-    for (auto& cloth : clothes) {
-        string type = cloth[1];
-        typeCount[type]++;
+    for (int i = 0; i < clothes.size(); i++) {
+        clothes_map[clothes[i][1]]++;
     }
 
-    int answer = 1;
+    int nResult = 1;
 
-    for (auto& pair : typeCount) {
-        answer *= (pair.second + 1);
+    for (auto & clothes : clothes_map) {
+        nResult *= (clothes.second + 1);
     }
-
-    return answer - 1;
+    
+    return nResult - 1;
 }
