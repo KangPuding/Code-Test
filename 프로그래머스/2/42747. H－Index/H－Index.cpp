@@ -5,28 +5,22 @@
 using namespace std;
 
 int solution(vector<int> citations) {
-
-    int nLen = citations.size();
-    int h = 0;
-    int nResult = 0;
     
     sort(citations.begin(), citations.end());
-    
-    while(h <= nLen)
-    {
-        int nHcount = 0;
-        for(int i = 0 ; i < nLen; i++)
-        {
-            if(h <= citations[i])
-                nHcount++;
-        }
-        
-        if(h <= nHcount)
-            nResult = h;
-        
-        h++;
-    }
 
+    bool isTrue = true;
+    int nIndex = 0;
+    int nResult = 0;
+
+    while (isTrue) 
+    {
+        if (citations[nIndex] >= citations.size() - nIndex) {
+            nResult = citations.size() - nIndex;
+            isTrue = false;
+        }
+        else
+            nIndex++;
+    }
     
     return nResult;
 }
