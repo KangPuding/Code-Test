@@ -4,22 +4,12 @@
 using namespace std;
 
 int solution(vector<int> common) {
-    int answer = 0;
-    
-    int nA = common[0];
-    int nB = common[1];
-    int nC = common[2];
-    
-    if(nB - nA == nC - nB)
-    {
-        int nD = nB - nA;
-        answer = common.back() + nD;
-    }
+    int nResult{};
+
+    if ((common[1] - common[0]) == (common[2] - common[1]))
+        nResult = common.back() + (common[1] - common[0]);
     else 
-    {
-        int nR = nB / nA;
-        answer = common.back() * nR;
-    }
+        nResult = common.back() * (common[1] / common[0]);
     
-    return answer;
+    return nResult;
 }
