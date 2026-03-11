@@ -4,25 +4,24 @@
 using namespace std;
 
 int solution(int number, int limit, int power) {
-    int answer = 0;
-    
-    for(int i = 1; i <= number; i++)
+    int nResult = 0;
+
+    for (int i = 1; i <= number; i++)
     {
         int nCount = 0;
-        for(int j = 1; j * j <= i; j++)
+        for (int j = 1; j * j <= i; j++)
         {
-            if(i % j == 0)
-            {
+            if (i % j == 0 && j * j == i)
                 nCount++;
-                if (j != i / j) 
-                    nCount++;
-            }
+            else if (i % j == 0 && j * j != i)
+                nCount += 2;
         }
-        
-        if(nCount > limit)
-            answer += power;
+
+        if (nCount > limit)
+            nResult += power;
         else
-            answer += nCount;
+            nResult += nCount;
     }
-    return answer;
+    
+    return nResult;
 }
