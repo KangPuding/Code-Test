@@ -1,38 +1,40 @@
 #include <string>
 #include <vector>
-#include <stack>
 
 using namespace std;
 
 vector<int> solution(vector<int> progresses, vector<int> speeds) {
-    vector<int> answer;
-    vector<int> Day;
-    
-    for(int i = 0; i < progresses.size(); i++)
+std::vector<int> vResult{};
+
+    int nCumulative = 0;
+    int nBackUp = 0;
+
+    for (int i = 0; i < progresses.size(); i++)
     {
-        int nRemain = 100 - progresses[i];
-        int nDay = (nRemain + speeds[i] - 1) / speeds[i];
-        Day.push_back(nDay);
-    }
-    
-    int nRemainDay = Day[0]; 
-    int nCount = 1;
-    
-    for(int i = 1; i  < Day.size(); i++)
-    {
-         if(nRemainDay >= Day[i])
+        int nDay = 0;
+        int nData = progresses[i];
+
+        while (nData < 100)
         {
-            nCount++;
+            nData += speeds[i];
+            nDay++;
         }
-        else
+
+        if (i == 0)
         {
-            answer.push_back(nCount);
-            nCount = 1;
-            nRemainDay = Day[i];
-        }  
+            nBackUp = nDay;
+            nCumulative++;
+        }
+        else if (nDay <= nBackUp)
+            nCumulative++;
+        else if (nDay > nBackUp)
+        {
+            vResult.push_back(nCumulative);
+            nCumulative = 1;
+            nBackUp = nDay;
+        }
     }
-    
-    answer.push_back(nCount);
-    
-    return answer;
+    vResult.push_back(nCumulative);
+
+    return vResult;
 }
