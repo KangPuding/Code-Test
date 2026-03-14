@@ -4,8 +4,27 @@
 using namespace std;
 
 vector<int> solution(int num, int total) {
-    bool isTrue = true;
-    int nNum = -100;
+    
+    std::vector<int> vResult;
+    
+    int nData = 0;
+    
+    for(int i = 0; i < num; i++)
+        nData += i;
+    
+    int nStart = (total - nData) / num;
+
+    for(int i = 0; i < num; i++)
+        {
+            vResult.push_back(nStart);
+            nStart++;
+        }
+    
+    
+    return vResult;
+    
+    /* bool isTrue = true;
+    int nNum = -50;
 
     while (isTrue)
     {
@@ -29,5 +48,5 @@ vector<int> solution(int num, int total) {
         vResult.push_back(i);
     }
     
-    return vResult;
+    return vResult; */
 }
