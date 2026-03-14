@@ -4,29 +4,27 @@
 using namespace std;
 
 vector<vector<int>> solution(vector<vector<int>> arr1, vector<vector<int>> arr2) {
-    vector<vector<int>> answer;
+        int nHeight = arr1.size();
+    int nWidth = arr2[0].size();
 
-    int nRows = arr1.size();
-    int nCols = arr2[0].size();
-    int nInner = arr1[0].size(); 
+    std::vector<std::vector<int>> nResult(nHeight, std::vector<int>(nWidth));
 
-    for (int i = 0; i < nRows; i++)
+    for (int i = 0; i < nHeight; i++)
     {
-        vector<int> row;
+        int nIndex = 0;
+        int nCount = 0;
 
-        for (int j = 0; j < nCols; j++) 
-        {
+        while (nCount < nWidth) {
             int nSum = 0;
-
-            for (int k = 0; k < nInner; k++) 
+            for (int j = 0; j < arr1[0].size(); j++)
             {
-                nSum += arr1[i][k] * arr2[k][j];
+                nSum += arr1[i][j] * arr2[j][nIndex];
             }
-            row.push_back(nSum); 
+            nResult[i][nIndex] = nSum;
+            nIndex++;
+            nCount++;
         }
-        answer.push_back(row); 
     }
-
-    return answer;
+    
+    return nResult;
 }
-
