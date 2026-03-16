@@ -1,42 +1,32 @@
-#include <iostream>
-#include <vector>
 #include <string>
-//#include <algorithm>
-#include <unordered_map>
+#include <vector>
+#include <algorithm>
 
 using namespace std;
 
 bool solution(vector<string> phone_book) {
     
-    std::unordered_map<std::string, int> hash_map{};
+    sort(phone_book.begin(), phone_book.end());
 
-    for (int i = 0; i < phone_book.size(); i++)
-    {
-	    hash_map[phone_book[i]] = 1;
-    }
+    bool isResult = true;
+    std::string Str= phone_book[0];
 
-    for (int i = 0; i < phone_book.size(); i++)
+    for (int i = 1; i < phone_book.size(); i++)
     {
-	    std::string Str = "";
-	    for (int j = 0; j < phone_book[i].size(); j++)
-	    {
-	    	Str += phone_book[i][j];
-	    	if (hash_map[Str] && Str != phone_book[i])
-	    		return false;
-    	}
+        if (Str.size() < phone_book[i].size() && isResult)
+        {
+            int nCount = 0;
+            for (int j = 0; j < Str.size(); j++)
+            {
+                if (Str[j] == phone_book[i][j])
+                    nCount++;
+            }
+
+            if (nCount == Str.size())
+                isResult = false;
+        }
+        Str = phone_book[i];
     }
-    return true;
     
-	//std::sort(phone_book.begin(), phone_book.end());
-
-	//for (int i = 0; i < phone_book.size() -1; i++)
-	//{
-	//	std::string& cur = phone_book[i];
-	//	std::string& next = phone_book[i + 1];
-    //
-	//	if (next.find(cur) == 0)
-	//		return false;
-    //
-	//}
-    // return true;
+    return isResult;
 }
