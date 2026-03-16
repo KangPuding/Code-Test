@@ -4,33 +4,35 @@
 using namespace std;
 
 vector<int> solution(vector<int> answers) {
-    vector<int> answer;
     
-    int s1[5] = {1, 2, 3, 4, 5};
-    int s2[8] = {2, 1, 2, 3, 2, 4, 2, 5};
-    int s3[10] = {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
-    int s1_cnt = 0;
-    int s2_cnt = 0;
-    int s3_cnt = 0;
-    
-    for(int i = 0; i < answers.size(); i++){
-        if(s1[i % 5] == answers[i])
-            s1_cnt++;
-        if (s2[i % 8] == answers[i])
-            s2_cnt++;
-        if (s3[i % 10] == answers[i])
-            s3_cnt++;
+    std::vector<int> student1 {1, 2, 3, 4, 5};
+    std::vector<int> student2 {2, 1, 2, 3, 2, 4, 2, 5};
+    std::vector<int> student3 {3, 3, 1, 1, 2, 2, 4, 4, 5, 5};
+    int nStudent1 = 0;
+    int nStudent2 = 0;
+    int nStudent3 = 0;
+
+    for (int i = 0; i < answers.size(); i++)
+    {
+        if (student1[i % student1.size()] == answers[i])
+            nStudent1++;
+        if (student2[i % student2.size()] == answers[i])
+            nStudent2++;
+        if (student3[i % student3.size()] == answers[i])
+            nStudent3++;
     }
+
+    std::vector<int> vResult{};
+    int nMax =std::max(std::max(nStudent1, nStudent2), nStudent3);
+
+    if (nMax == nStudent1)
+        vResult.push_back(1);
     
-    int Maxcnt = max(s1_cnt, s2_cnt);
-    Maxcnt = max(Maxcnt, s3_cnt);
+    if (nMax == nStudent2)
+        vResult.push_back(2);
     
-    if(Maxcnt == s1_cnt)
-        answer.push_back(1);
-    if(Maxcnt == s2_cnt)
-        answer.push_back(2);
-    if(Maxcnt == s3_cnt)
-        answer.push_back(3);
+    if (nMax == nStudent3)
+        vResult.push_back(3);
     
-    return answer;
+    return vResult;
 }
