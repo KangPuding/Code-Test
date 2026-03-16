@@ -4,22 +4,18 @@
 using namespace std;
 
 string solution(int a, int b) {
-    string answer = "";
     
-    vector<string> DayofTheWeek = {"FRI", "SAT", "SUN", "MON", "TUE", "WED", "THU"};
-    int arMonthDays[12] = {31,29,31,30,31,30,31,31,30,31,30,31};
+    std::vector<std::string> Days {"FRI","SAT","SUN","MON","TUE","WED","THU"};
+    std::vector<int> Months {31, 29, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
 
-    int nAllDay = 0;
-    for(int i = 0; i < a - 1; i++)
+    int nDays = 0;
+
+    for (int i = 0; i < a - 1; i++)
     {
-        nAllDay += arMonthDays[i];
+        nDays += Months[i];
     }
+    nDays += b - 1;
     
-    nAllDay += b;
-    
-    int nDay = (nAllDay - 1) % 7;
-    
-    answer = DayofTheWeek[nDay];
-    
-    return answer;
+    return Days[nDays % 7];
+
 }
