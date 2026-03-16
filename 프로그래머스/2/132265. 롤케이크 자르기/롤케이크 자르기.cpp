@@ -1,33 +1,35 @@
 #include <string>
 #include <vector>
-#include <unordered_map>
+#include <set>
+#include <map>
 
 using namespace std;
 
 int solution(vector<int> topping) {
-    int answer = 0;
-    unordered_map<int, int> leftMap;
-    unordered_map<int, int> rightMap;
     
-    for(int i : topping)
-    {
-        rightMap[i]++;
+    std::set<int> Brother {};
+    std::map<int,int> YBrother{};
+
+    for (int i = 0; i < topping.size(); i++) {
+        YBrother[topping[i]]++;
     }
-     
-    for(int i = 0; i < topping.size(); i++)
+
+    int nIndex = 0;
+    int nResult{};
+
+    while (nIndex < topping.size() - 1)
     {
-        int t = topping[i];
-        
-        leftMap[t]++;
-        
-        rightMap[t]--;
-        
-        if (rightMap[t] == 0) 
-            rightMap.erase(t);
-        
-        if (leftMap.size() == rightMap.size()) 
-            answer++;    
+        Brother.insert(topping[nIndex]);
+        YBrother[topping[nIndex]]--;
+
+        if (YBrother[topping[nIndex]] == 0)
+            YBrother.erase(topping[nIndex]);
+
+        if (Brother.size() == YBrother.size())
+            nResult++;
+
+        nIndex++;
     }
     
-    return answer;
+    return nResult;
 }
