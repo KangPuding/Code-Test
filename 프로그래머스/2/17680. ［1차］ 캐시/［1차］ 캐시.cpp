@@ -1,52 +1,65 @@
 #include <string>
 #include <vector>
-#include <list>
-#include <algorithm>
+#include <deque>
 
 using namespace std;
 
+
 int solution(int cacheSize, vector<string> cities) {
-    int answer = 0;
-    list<string> CityCache;
-    
-    for(int i = 0; i < cities.size(); i++)
+    for (int i = 0; i < cities.size(); i++)
     {
-        string city = cities[i];
-        transform(city.begin(), city.end(), city.begin(), ::tolower);
-        
-        int bFind = false;
-        list<string>::iterator findIt = CityCache.end(); 
-        
-        for(auto it = CityCache.begin(); it != CityCache.end(); it++)
+        std::string Str{};
+        for (int j = 0; j < cities[i].size(); j++)
+            Str += std::tolower(cities[i][j]);
+
+        cities[i] = Str;
+    }
+
+    std::deque<std::string> Cache {};
+    int nResult{};
+
+    for (int i = 0; i < cities.size(); i++)
+    {
+        if (cacheSize == 0)
         {
-            if(*it == city)
-            {
-                bFind = true;
-                findIt = it;
-            }
-        }
-        
-        if(bFind)
-        {
-            CityCache.erase(findIt);
-            CityCache.push_front(city);
-            answer += 1;
+            nResult += 5;
         }
         else
         {
-            if (cacheSize > 0 && CityCache.size() >= cacheSize)
+            bool isBool = false;
+            int j = 0;
+            while (j < Cache.size() && !isBool)
             {
-                CityCache.pop_back();        
+                if (cities[i] == Cache[j])
+                {
+                    Cache.erase(Cache.begin() + j);
+                    Cache.push_front(cities[i]);
+                    nResult += 1;
+                    isBool = true;
+                }
+                j++;
             }
-
-            if (cacheSize > 0)
+            if (!isBool)
             {
-                CityCache.push_front(city);  
+                if (Cache.empty())
+                {
+                    Cache.push_front(cities[i]);
+                    nResult += 5;
+                }
+                else if (Cache.size() == cacheSize)
+                {
+                    Cache.pop_back();
+                    Cache.push_front(cities[i]);
+                    nResult += 5;
+                }
+                else if (Cache.size() < cacheSize)
+                {
+                    Cache.push_front(cities[i]);
+                    nResult += 5;
+                }
             }
-
-            answer += 5;
         }
-           
     }
-    return answer;
+
+    return nResult;
 }
