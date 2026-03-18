@@ -1,69 +1,48 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include <set>
+#include <map>
 
 using namespace std;
 
 vector<int> solution(string s) {
-    vector<vector<int>> sets;
-    vector<int> answer;
-    set<int> used;
 
-    string num = "";
-    vector<int> current;
 
-    for (int i = 1; i < s.size() - 1; ++i) 
+    std::map<int, int> s_map {};
+    std::string Str{};
+
+    for (int i = 0; i < s.length(); i++)
     {
-        if (isdigit(s[i])) 
+        if (s[i] != '{' && s[i] != '}')
+            Str += s[i];
+
+        if (s[i] == ',')
         {
-            num += s[i];
-        } 
-        else if (s[i] == ',') 
-        {
-            if (!num.empty()) 
-            {
-                current.push_back(stoi(num));
-                num = "";
-            }
-        } 
-        else if (s[i] == '}') 
-        {
-            if (!num.empty()) 
-            {
-                current.push_back(stoi(num));
-                num = "";
-            }
-            if (!current.empty()) 
-            {
-                sets.push_back(current);
-                current.clear();
-            }
+            s_map[stoi(Str)]++;
+            Str = "";
         }
     }
 
-    sort(sets.begin(), sets.end(), [](const vector<int>& a, const vector<int>& b) 
-    {
-        return a.size() < b.size();
-    });
+    s_map[stoi(Str)]++;
 
-    for (const auto& set : sets) 
-    {
-        int newNumber = -1;
-        for (int n : set) 
+    std::vector<std::pair<int, int>> v(s_map.begin(), s_map.end());
+
+    std::sort(v.begin(), v.end(),
+        [](const std::pair<int, int>& a, const std::pair<int, int>& b)
         {
-            if (used.find(n) == used.end()) 
+            if (a.second == b.second)
             {
-                newNumber = n; 
-                used.insert(n);
+                return a.first > b.first;
             }
-        }
-        if (newNumber != -1) 
-        {
-            answer.push_back(newNumber);
-        }
+            return a.second > b.second;
+        });
+   
+    std::vector<int> vResult{};
+
+    for (const auto& entry : v)
+    {
+        vResult.push_back(entry.first);
     }
-
-
-    return answer;
+    
+    return vResult;
 }
