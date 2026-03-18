@@ -5,13 +5,23 @@
 using namespace std;
 
 int solution(int k, int m, vector<int> score) {
-    int answer = 0;
-    
-    sort(score.begin(), score.end(), greater<int>());
-    
-    for(int i = m - 1; i < score.size(); i += m)
+
+
+    sort(score.begin(), score.end(), std::greater<>());
+
+    int nIndex = 0;
+    int nSum = 0;
+    while (nIndex < score.size())
     {
-        answer += score[i] * m;
+        if (nIndex + m <= score.size()) {
+            if (score[nIndex + m - 1] > k)
+                nSum += m * k;
+            else
+                nSum += m * score[nIndex + m - 1];
+        }
+
+        nIndex += m;
     }
-    return answer;
+    
+    return nSum;
 }
