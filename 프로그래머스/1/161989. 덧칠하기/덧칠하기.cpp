@@ -4,8 +4,24 @@
 using namespace std;
 
 int solution(int n, int m, vector<int> section) {
+    
+    int nCount = 0;
+    int nIndex = 0;
 
-    std::vector<char> wall(n, 'O');
+    for (int i = 0; i < section.size(); i++)
+    {
+        if (nIndex <= section[i] - 1)
+        {
+            if (section[i] - 1 + m < n)
+                nIndex = section[i] - 1 + m;
+            else
+                nIndex = n;
+
+            nCount++;
+        }
+    }
+
+   /* std::vector<char> wall(n, 'O');
 
     for (int i = 0; i < section.size(); i++)
     {
@@ -15,33 +31,20 @@ int solution(int n, int m, vector<int> section) {
     int nIndex = 0;
     int nCount = 0;
 
-    if (m == 1)
-        nCount = section.size();
-    else
+    while (nIndex < n)
     {
-        while (nIndex < n)
+        if (wall[nIndex] == 'X')
         {
-            if (wall[nIndex] == 'X')
-            {
-                if (nIndex < n - m)
-                {
-                    for (int i = nIndex; i < m + nIndex; i++)
-                    {
-                        wall[i] = 'O';
-                    }
-                }
-                else
-                {
-                    for (int i = nIndex; i < n; i++)
-                    {
-                        wall[i] = 'O';
-                    }
-                }
-                nCount++;
-            }
-            nIndex++;
+            if (nIndex + m < n)
+                nIndex += m;
+            else
+                nIndex = n - 1;
+
+            nCount++;
         }
-    }
+        else
+            nIndex++;
+    } */
     
     return nCount;
 }
