@@ -4,24 +4,23 @@
 using namespace std;
 
 int solution(vector<int> wallet, vector<int> bill) {
-    int answer = 0;
-    bool bSucc = false;
-    
-    while(!bSucc)
+bool isTrue = true;
+    int nCount = 0;
+
+    while (isTrue)
     {
-        if(wallet[0] >= bill[0] && wallet[1] >= bill[1])
-            bSucc = true;
-        else if(wallet[0] >= bill[1] && wallet[1] >= bill[0])
-            bSucc = true;
+        if ((wallet[0] >= bill[0] && wallet[1] >= bill[1]) || (wallet[0] >= bill[1] && wallet[1] >= bill[0]))
+            isTrue = false;
         else
         {
-            if(bill[0] < bill[1])
-                bill[1] /= 2;
+            if (bill[0] > bill[1])
+                bill[0] = bill[0] / 2;
             else
-                bill[0] /= 2;
-            
-            answer++; 
-        }  
+                bill[1] = bill[1] / 2;
+
+            nCount++;
+        }
     }
-    return answer;
+    
+    return nCount;
 }
