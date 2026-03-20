@@ -1,76 +1,74 @@
 #include <string>
 #include <vector>
 #include <map>
+#include <cctype>
 
 using namespace std;
 
-void TolowerStr(string& str)
+void ToUpper(string& str)
 {
-    for(int i = 0; i < str.size(); i++)
+    for (char& c : str)
     {
-        str[i] = tolower(str[i]);
+        c = static_cast<char>(toupper(static_cast<unsigned char>(c)));
     }
 }
 
-void makeV(string str, vector<string> & vStr)
+vector<string> MakePairs(const string& str)
 {
-    for(int i = 1; i < str.size(); i++)
+    vector<string> result;
+
+    for (int i = 1; i < str.length(); ++i)
     {
-        if(str[i] >= 97 && str[i] <= 122 && str[i - 1] >= 97 && str[i - 1] <= 122)
+        char a = str[i - 1];
+        char b = str[i];
+
+        if ('A' <= a && a <= 'Z' && 'A' <= b && b <= 'Z')
         {
-            string sUp = "";
-            sUp += str[i - 1];
-            sUp += str[i];
-            vStr.push_back(sUp);
+            string temp;
+            temp += a;
+            temp += b;
+            result.push_back(temp);
         }
     }
+
+    return result;
 }
 
-int solution(string str1, string str2) {
-    int answer = 0;     
-    float fUnion = 0;         //합집합
-    float fIntersection = 0;  // 교집합 
-    vector<string> vStr1;
-    vector<string> vStr2;
-    
-    TolowerStr(str1);
-    TolowerStr(str2);
-    
-    makeV(str1, vStr1);
-    makeV(str2, vStr2);
-    
+int solution(string str1, string str2)
+{
+    ToUpper(str1);
+    ToUpper(str2);
+
+    vector<string> v1 = MakePairs(str1);
+    vector<string> v2 = MakePairs(str2);
+
     map<string, int> m1;
     map<string, int> m2;
-    
-    for (auto& s : vStr1) 
+
+    for (const string& s : v1)
         m1[s]++;
-    for (auto& s : vStr2) 
+
+    for (const string& s : v2)
         m2[s]++;
-    
-    for (auto& p : m1)
+
+    int intersection = 0;
+    int uni = 0;
+
+    map<string, int> allKeys = m1;
+    for (const auto& [key, value] : m2)
+        allKeys[key];
+
+    for (const auto& [key, _] : allKeys)
     {
-        string key = p.first;
-        int cnt1 = p.second;
-        int cnt2 = m2[key];
-        fIntersection += min(cnt1, cnt2);
+        int c1 = m1[key];
+        int c2 = m2[key];
+
+        intersection += min(c1, c2);
+        uni += max(c1, c2);
     }
 
-    for (auto& p : m2)
-    {
-        string key = p.first;
-        m1[key] = max(m1[key], p.second);
-        // m1에 Key값이 없으면 자동으로 만들어지고 key에 대한 밸류값은 p.second에 들어가있으니 같이 저장 -> 합집합
-    }
-    
-    for (auto& p : m1)
-    {
-        fUnion += p.second;
-    }
-    
-    if(fIntersection == 0 && fUnion == 0)
-        answer = 65536;
-    else
-        answer = (int)((fIntersection / fUnion) * 65536);
-    
-    return answer;
+    if (uni == 0)
+        return 65536;
+
+    return static_cast<int>((double)intersection / uni * 65536);
 }
