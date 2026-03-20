@@ -2,36 +2,34 @@
 #include <iostream>
 using namespace std;
 
-bool isPrime(int nData)
+bool isPrime(int n)
 {
-    if(nData < 2)
+    if (n <= 1)
         return false;
-    
-    for(int i = 2; i * i <= nData; i++)
+
+    for (int i = 2; i * i <= n; i++)
     {
-        if(nData % i == 0)
+        if (n % i == 0)
             return false;
     }
-    
     return true;
 }
 
 int solution(vector<int> nums) {
-    int answer = 0;
-    int nVsize = nums.size();
+    int nCount = 0;
 
-    for(int i = 0; i < nVsize - 2; i++)
+    for (int i = 0; i < nums.size(); i++)
     {
-       for(int j = i + 1; j < nVsize - 1; j++)
-       {
-           for(int w = j + 1; w < nVsize; w++)
-           { 
-               int nSum = nums[i] + nums[j] + nums[w];  
-               if(isPrime(nSum))
-                   answer++;
-           }
-       }
-    }
+        for (int j = i + 1; j < nums.size(); j++)
+        {
+            for (int k = j + 1; k < nums.size(); k++)
+            {
+                int nData = nums[i] + nums[j] + nums[k];
 
-    return answer;
+                if (isPrime(nData))
+                    nCount++;
+            }
+        }
+    }
+    return nCount;
 }
