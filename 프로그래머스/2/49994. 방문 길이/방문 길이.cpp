@@ -1,55 +1,53 @@
 #include <string>
+#include <vector>
 #include <set>
-
 using namespace std;
 
-bool Move (char cMove, int &pX, int &pY)
-{   
-    
-    int tempX = pX;
-    int tempY = pY;
-    
-    if(cMove == 'U')
-        tempY += 1;
-    else if(cMove == 'D')
-        tempY -= 1;
-    else if(cMove == 'R')
-        tempX += 1;
-    else if(cMove == 'L')
-        tempX -= 1;
-    
-    if (tempX < -5 || tempX > 5 || tempY < -5 || tempY > 5)
-        return false;
-        
-    pX = tempX;
-    pY = tempY;
-    
-    return true;
-}
 int solution(string dirs) {
-    set<string> visited;
+
+    std::set<std::pair<std::pair<int,int>,std::pair<int,int>>> set;
     int nCount = 0;
+    int X = 5;
+    int Y = 5;
     int nX = 0;
     int nY = 0;
-    
-    for (char dir : dirs)
-    {
-        int nPrevX = nX;
-        int nPrevY = nY;
-        
-        if(Move(dir, nX, nY))
-        {
-            string path1 = to_string(nPrevX) + "," + to_string(nPrevY) + "-" + to_string(nX) + "," + to_string(nY);
-            string path2 = to_string(nX) + "," + to_string(nY) + "-" + to_string(nPrevX) + "," + to_string(nPrevY);
 
-            
-            if(visited.find(path1) == visited.end() && visited.find(path2) == visited.end())
-            {
-                visited.insert(path1);
-                visited.insert(path2);
-                nCount++;
-            }   
+
+    for (int i = 0; i < dirs.length(); i++)
+    {
+
+        nX = X;
+        nY = Y;
+
+        char c = dirs[i];
+
+        if (c == 'U' && 10 > nY)
+            nY++;
+        else if (c == 'D' && 0 < nY)
+            nY--;
+        else if (c == 'L' && 0 < nX)
+            nX--;
+        else if (c == 'R' && 10 > nX)
+            nX++;
+
+
+        std::pair<int, int> point1 = std::make_pair(X, Y);
+        std::pair<int, int> point2 = std::make_pair(nX, nY);
+
+        if (point2 < point1)
+        {
+            std::pair<int,int> tmp = point1;
+            point1 = point2;
+            point2 = tmp;
         }
+
+        
+        if (X != nX || Y != nY)
+            set.insert(std::make_pair(point1, point2));
+
+        X = nX;
+        Y = nY;
+
     }
-    return nCount;
+    return set.size();
 }
