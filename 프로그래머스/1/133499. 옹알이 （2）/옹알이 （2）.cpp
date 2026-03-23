@@ -1,46 +1,48 @@
 #include <string>
 #include <vector>
+#include <sstream>
 
 using namespace std;
 
-bool isSpeakable(const string& word) {
-    string temp = word;
-    string prev = "";
-
-    vector<string> validSounds = {"aya", "ye", "woo", "ma"};
-
-    while (!temp.empty()) 
-    {
-        bool matched = false;
-
-        for (const string& sound : validSounds) 
-        {
-            if (temp.find(sound) == 0 && sound != prev) 
-            {
-                prev = sound;
-                temp = temp.substr(sound.length());
-                matched = true;
-            }
-        }
-        if (!matched) 
-        {
-            return false;
-        }
-    }
-
-    return true;
-}
-
 int solution(vector<string> babbling) {
-    int answer = 0;
+std::vector<std::string> Str {"aya","ye", "woo", "ma"};
 
-    for (const string& word : babbling) 
+    int nResult = 0;
+
+    for (int i = 0; i < babbling.size(); i++)
     {
-        if (isSpeakable(word)) 
-        {
-            answer++;
-        }
-    }
+        std::string s = babbling[i];
+        std::string prev = "";
 
-    return answer;
+        int pos = 0;
+        bool ok = true;
+
+        while (pos < s.size() && ok)
+        {
+            bool matched = false;
+
+            int nIndex = 0;
+            while(!matched && nIndex < Str.size())
+            {
+                std::string cur = Str[nIndex];
+
+                if (pos + cur.size() <= s.size()) {
+                    if (s.substr(pos, cur.size()) == cur && prev != cur) {
+                        prev = cur;
+                        pos += cur.size();
+                        matched = true;
+                    }
+                }
+                nIndex++;
+            }
+
+            if (matched == false)
+                ok = false;
+        }
+
+        if (ok == true && pos == s.size())
+            nResult++;
+    }
+    
+    return nResult;
 }
