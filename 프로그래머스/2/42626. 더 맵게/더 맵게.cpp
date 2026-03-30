@@ -5,31 +5,34 @@
 using namespace std;
 
 int solution(vector<int> scoville, int K) {
-    
-    priority_queue<int, vector<int>, greater<int>> pq;
-    
-    for(int i = 0; i < scoville.size(); i++)
-    {
-        pq.push(scoville[i]);
-    }
-    
-    int nFirst = 0;
-    int nSecond = 0;
-    int nCount = 0;
-    
-    while(pq.size() >= 2 && pq.top() < K)
-    {
-        nFirst = pq.top();
-        pq.pop();
-        nSecond = pq.top();
-        pq.pop();
-        
-        pq.push(nFirst + (nSecond * 2));
-        nCount++;
-    }
-    
-    if (pq.top() < K)
-        return -1;
 
-    return nCount;
+    std::priority_queue<int, std::vector<int>, std::greater<int>> q;
+
+    for (int i = 0; i < scoville.size(); i++) {
+        q.push(scoville[i]);
+    }
+
+    bool isTrue = true;
+    int nCount = 0;
+    while (q.top() < K && isTrue)
+    {
+        if (q.size() >= 2)
+        {
+            int nMin1 = q.top();
+            q.pop();
+            int nMin2 = q.top();
+            q.pop();
+            
+            int nMix = nMin1 + nMin2 * 2;
+            
+            q.push(nMix);
+            nCount++;
+        }
+        else
+            isTrue = false;
+    }
+    if(isTrue)
+        return nCount;
+    else
+        return -1;
 }
