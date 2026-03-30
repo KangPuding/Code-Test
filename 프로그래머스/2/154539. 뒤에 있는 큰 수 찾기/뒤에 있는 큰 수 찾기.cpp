@@ -1,22 +1,22 @@
 #include <string>
 #include <vector>
+#include <stack>
 
 using namespace std;
 
 vector<int> solution(vector<int> numbers) {
-    int nSize = numbers.size();
     
-    vector<int> answer(nSize, -1);
-    vector<int> stack;
-    
-    for(int i = 0; i < nSize; i++)
-    {
-        while(!stack.empty() && numbers[stack.back()] < numbers[i])
+    std::vector<int> vResult(numbers.size(), -1);
+    std::stack<int> st;
+
+    for (int i = 0; i < numbers.size(); i++) {
+        while (!st.empty() && numbers[st.top()] < numbers[i])
         {
-            answer[stack.back()] = numbers[i];
-            stack.pop_back();
+            vResult[st.top()] = numbers[i];
+            st.pop();
         }
-        stack.push_back(i);
+        st.push(i);
     }
-    return answer;
+    
+    return vResult;
 }
