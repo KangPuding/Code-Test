@@ -5,34 +5,29 @@
 using namespace std;
 
 vector<int> solution(vector<string> operations) {
-    multiset<int> que;
-    
-    for(const string& op : operations)
+    std::multiset<int> s_operations {};
+
+
+    for (int i = 0; i < operations.size(); i++)
     {
-        if(op[0] == 'I')
+        if (operations[i] == "D -1" && !s_operations.empty())
+           s_operations.erase(s_operations.begin());
+        else if (operations[i] == "D 1" && !s_operations.empty())
+            s_operations.erase(prev(s_operations.end()));
+        else if (operations[i][0] == 'I')
         {
-            int nData = stoi(op.substr(2));
-            que.insert(nData);
-        }
-        else if (op == "D 1")
-        {
-            if (!que.empty()) 
+            std::string Str{};
+            for (int j = 0; j < operations[i].size(); j++)
             {
-                auto it = prev(que.end());
-                que.erase(it);
+                if (operations[i][j] != 'I' && operations[i][j] != ' ')
+                    Str+= operations[i][j];
             }
-        }
-        else if (op == "D -1")
-        {
-            if (!que.empty()) 
-                que.erase(que.begin());
+            s_operations.insert(stoi(Str));
         }
     }
     
-    if (que.empty()) 
+    if(s_operations.empty())
         return {0, 0};
-
-    int maxVal = *prev(que.end());
-    int minVal = *que.begin();
-    return {maxVal, minVal};
+    else
+        return { *prev(s_operations.end()), *s_operations.begin()};
 }
