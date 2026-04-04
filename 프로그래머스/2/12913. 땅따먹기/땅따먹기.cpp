@@ -4,30 +4,34 @@ using namespace std;
 
 int solution(vector<vector<int> > land)
 {
-    int nY = 0;
-    int nX = 0;
-    
-    for(nY = 1; nY < land.size(); nY++)
+    std::vector<std::vector<int>> DP(land.size(), std::vector<int>(land[0].size(), 0));
+
+    DP[0][0] = land[0][0];
+    DP[0][1] = land[0][1];
+    DP[0][2] = land[0][2];
+    DP[0][3] = land[0][3];
+
+    for (int i = 1; i < land.size(); i++)
     {
-        for (nX = 0; nX < 4; nX++)
+        for (int j = 0; j < 4; j++)
         {
-            int nMax = 0;
-            for(int k = 0; k < 4; k++)
+            int prevMax = 0;
+            for (int k = 0; k < 4; k++)
             {
-                if(k != nX && nMax < land[nY -1][k])
+                if (k != j)
                 {
-                    nMax = land[nY -1][k];
+                    prevMax = std::max(prevMax, DP[i - 1][k]);
                 }
             }
-            land[nY][nX] += nMax;
+            DP[i][j] = land[i][j] + prevMax;
         }
     }
-    
-    int nResult = 0;
-    for(nX = 0; nX < 4; nX++)
-    {
-        if(nResult < land[land.size() - 1][nX])
-            nResult = land[land.size() - 1][nX];
+
+    int nResult = DP[land.size() - 1][0];
+    for (int i = 1; i < 4; i++) {
+        if (nResult < DP[land.size() - 1][i])
+            nResult = DP[land.size() - 1][i];
     }
+    
     return nResult;
 }
