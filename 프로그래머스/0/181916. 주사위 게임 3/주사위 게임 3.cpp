@@ -1,72 +1,67 @@
 #include <string>
 #include <vector>
+#include <map>
 #include <algorithm>
-#include <unordered_map>
-#include <cmath>
 
 using namespace std;
 
 int solution(int a, int b, int c, int d) {
-    int answer = 0;
-    
-    unordered_map<int, int> count;
-    count[a]++;
-    count[b]++;
-    count[c]++;
-    count[d]++;
-    
-    if(count.size() == 1)
-        return 1111* a;
-    
-    if (count.size() == 2)
-    {
-        vector<int> keys;
-        vector<int> freq;
+std::map<int, int> map{};
 
-        for (const auto& [num, cnt] : count) 
-        {
-            keys.push_back(num);
-            freq.push_back(cnt);
-        }
-        
-        if(freq[0] == 3 || freq[1] == 3)
-        {
-            int p = 0;
-            int q = 0;
-            
-            if(freq[0] == 3)
-            {
-                p = keys[0];
-                q = keys[1];
-            }
-            else
-            {
-                p = keys[1];
-                q = keys[0];
-            }
-            return pow(10 * p + q, 2);
-        }
-        return (keys[0] + keys[1]) * abs(keys[0] - keys[1]);
+    map[a]++;
+    map[b]++;
+    map[c]++;
+    map[d]++;
+
+    std::vector<std::pair<int, int>> vec{};
+    int nResult{};
+
+    for (auto it : map) {
+        vec.push_back(std::pair(it.first, it.second));
     }
-    
-    
-    if(count.size() == 3)
+
+    sort(vec.begin(), vec.end(),
+    [](const std::pair<int, int>& a, const std::pair<int, int>& b) {
+        if (a.second != b.second)
+            return a.second > b.second;
+
+        return a.first < b.first;
+    });
+
+
+    if (vec.size() == 1)
     {
-        int q = 0;
-        int r = 0;
-        
-        for(const auto& [num, cnt] : count)
-        {
-            if(cnt == 1)
-            {
-                if(q == 0)
-                    q = num;
-                else
-                    r = num;
-            }
-        }
-        return q * r;
+        nResult = vec[0].first * 1111;
     }
-        
-    return min({a,b,c,d});
+    else if (vec.size() == 2)
+    {
+        if (vec[0].second == 3 && vec[1].second == 1)
+        {
+            nResult = (10 * vec[0].first + vec[1].first) * (10 * vec[0].first + vec[1].first);
+        }
+        else if (vec[0].second == 2 && vec[1].second == 2)
+        {
+            int nabs = vec[0].first - vec[1].first;
+
+            if (nabs < 0)
+                nabs *= -1;
+
+            nResult = (vec[0].first + vec[1].first) * nabs;
+        }
+    }
+    else if (vec.size() == 3)
+    {
+        nResult = vec[1].first * vec[2].first;
+    }
+    else
+    {
+        nResult = vec[0].first;
+
+        for (int i = 1; i < vec.size(); i++) {
+            if (nResult > vec[i].first)
+                nResult = vec[i].first;
+        }
+    }
+    
+    return nResult;
 }
