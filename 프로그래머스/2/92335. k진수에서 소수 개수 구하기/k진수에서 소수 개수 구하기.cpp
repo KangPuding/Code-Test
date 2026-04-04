@@ -1,56 +1,68 @@
 #include <string>
 #include <vector>
-
+#include <algorithm>
 
 using namespace std;
 
-string notation(int n, int k)
+void Binary(int nData, int nBinary, std::string &Str)
 {
-    string Str;
-    while (n > 0) 
+    std::vector<int> vBinary;
+
+    while (nData >= nBinary)
     {
-        Str = to_string(n % k) + Str;
-        n /= k;
+        int nRemainder = nData % nBinary;
+        vBinary.push_back(nRemainder);
+        nData = nData / nBinary;
     }
-    return Str;
+    vBinary.push_back(nData);
+    std::reverse(vBinary.begin(), vBinary.end());
+
+    for (int i = 0; i < vBinary.size(); i++)
+    {
+        Str += std::to_string(vBinary[i]);
+    }
 }
 
-bool isPrime(long long n)
+bool PrimeN(long long nData)
 {
-    if (n < 2) 
+    if (nData == 1 || nData == 0)
         return false;
-    
-    for (long long  i = 2; i * i <= n; i++) 
+
+    for (long long i = 2; i * i <= nData; i++)
     {
-        if (n % i == 0)
+        if (nData % i == 0)
             return false;
     }
     return true;
 }
 
-int solution(int n, int k) 
-{
-    int answer = 0;
-    string Str = notation(n, k);
+int solution(int n, int k) {
     
-    string token = "";
-    for(int i = 0; i <= Str.size(); i++)
+    std::string Str{};
+    std::vector<long long> vData;
+
+    Binary(n, k, Str);
+
+    std::string S{};
+    for (int i = 0; i < Str.size(); i++)
     {
-        if(i == Str.size() || Str[i] == '0')
+        if (Str[i] != '0')
+            S += Str[i];
+        else if (S != "")
         {
-            if(!token.empty())
-            {
-                long long nResult = stoll(token);
-                
-                if(isPrime(nResult))
-                    answer++;
-                
-                token.clear();
-            }
+            vData.push_back(std::stoll(S));
+            S = "";
         }
-        else
-                token += Str[i];
+    }
+    if (S != "")
+        vData.push_back(std::stoll(S));
+
+    int nCount = 0;
+    for (int i = 0; i < vData.size(); i++) {
+        printf("%lld ", vData[i]);
+        if (PrimeN(vData[i]))
+            nCount++;
     }
     
-    return answer;
+    return nCount;
 }
